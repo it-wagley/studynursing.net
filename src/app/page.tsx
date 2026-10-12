@@ -38,10 +38,10 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-colors selection:bg-emerald-500/20 selection:text-emerald-800 dark:selection:text-emerald-200">
+    <div className="min-h-screen bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-colors selection:bg-sky-500/20 selection:text-sky-900 dark:selection:text-sky-200">
       {/* Top Banner */}
-      <div className="bg-gradient-to-r from-emerald-700 via-teal-700 to-cyan-700 text-white text-xs py-2 px-4 text-center font-medium flex items-center justify-center gap-2">
-        <span className="bg-white/20 px-2 py-0.5 rounded-full text-[12px] font-bold uppercase tracking-wider">
+      <div className="bg-gradient-to-r from-slate-900 via-blue-950 to-sky-900 border-b border-sky-800/40 text-white text-xs py-2 px-4 text-center font-medium flex items-center justify-center gap-2">
+        <span className="bg-sky-500/20 text-sky-200 border border-sky-400/30 px-2 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider">
           2026 Global Nurse Relocation Initiative
         </span>
         <span>AHPRA OBA (Australia) & NextGen NCLEX (US/Canada) direct qualification files are now processing.</span>

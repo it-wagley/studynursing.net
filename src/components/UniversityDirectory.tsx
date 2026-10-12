@@ -30,7 +30,7 @@ export const UniversityDirectory: React.FC<UniversityDirectoryProps> = ({ onOpen
       {/* Directory Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-5">
         <div>
-          <div className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600 uppercase tracking-wider mb-1">
+          <div className="inline-flex items-center gap-1.5 text-xs font-bold text-sky-600 dark:text-sky-400 uppercase tracking-wider mb-1">
             <GraduationCap className="w-3.5 h-3.5" />
             <span>Accredited Global Degree Directory</span>
           </div>
@@ -38,15 +38,15 @@ export const UniversityDirectory: React.FC<UniversityDirectoryProps> = ({ onOpen
             Accredited Nursing Degrees in Australia, US, UK & Canada
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 max-w-2xl">
-            Explore 60+ pre-registration Masters, accelerated BSNs, and conversion degrees. Compare official tuition fees, intake months, clinical hours, and post-study work visa rights.
+            Explore 27 pre-registration Masters, accelerated BSNs, and conversion degrees. Compare official tuition fees, intake months, clinical hours, and post-study work visa rights.
           </p>
         </div>
 
-        <div className="flex items-center gap-2 p-3 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-500/20 rounded-2xl text-xs">
-          <Sparkles className="w-4 h-4 text-emerald-600" />
+        <div className="flex items-center gap-2 p-3 bg-sky-50 dark:bg-sky-950/40 border border-sky-500/20 rounded-2xl text-xs">
+          <Sparkles className="w-4 h-4 text-sky-600" />
           <div>
             <div className="font-bold text-slate-900 dark:text-white">Independent Program Database</div>
-            <div className="text-[12px] text-emerald-700 dark:text-emerald-300">Verified 2026 tuition fees, entry criteria & visa rights</div>
+            <div className="text-[12px] text-sky-700 dark:text-sky-300">Verified 2026 tuition fees, entry criteria & visa rights</div>
           </div>
         </div>
       </div>
@@ -61,7 +61,7 @@ export const UniversityDirectory: React.FC<UniversityDirectoryProps> = ({ onOpen
               placeholder="Search university name, city, or degree title (e.g. Sydney, Deakin, Master of Nursing)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500"
+              className="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs text-slate-900 dark:text-white focus:outline-none focus:border-sky-500"
             />
           </div>
 
@@ -73,8 +73,8 @@ export const UniversityDirectory: React.FC<UniversityDirectoryProps> = ({ onOpen
                 onClick={() => setSelectedCountry(country)}
                 className={`px-3 py-2 rounded-xl font-medium transition-all ${
                   selectedCountry === country
-                    ? "bg-emerald-600 text-white font-bold shadow-sm"
-                    : "bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-100"
+                    ? "bg-sky-600 text-white font-bold shadow-sm"
+                    : "bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700"
                 }`}
               >
                 {country === "Australia" ? "🇦🇺 Australia" : country === "United States" ? "🇺🇸 USA" : country === "United Kingdom" ? "🇬🇧 UK" : country === "Canada" ? "🇨🇦 Canada" : "All Countries"}
@@ -93,7 +93,7 @@ export const UniversityDirectory: React.FC<UniversityDirectoryProps> = ({ onOpen
             { label: "All Degrees", val: "All" },
             { label: "Master of Nursing (Pre-Reg)", val: "Master of Nursing (Pre-Reg)" },
             { label: "Bachelor Conversion", val: "Bachelor Conversion" },
-            { label: "Accelerated BSN (USA)", val: "Accelerated BSN" },
+            { label: "Accelerated BSN (USA/Canada)", val: "Accelerated BSN" },
             { label: "Standard Bachelor", val: "Standard Bachelor" }
           ].map((item) => (
             <button
@@ -121,11 +121,11 @@ export const UniversityDirectory: React.FC<UniversityDirectoryProps> = ({ onOpen
             {/* Top Bar */}
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
+                <span className="text-xs font-bold text-sky-600 dark:text-sky-400 flex items-center gap-1.5">
                   <span className="text-lg">{prog.countryFlag}</span>
                   <span>{prog.country} • {prog.city}</span>
                 </span>
-                <span className="text-[12px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300">
+                <span className="text-[12px] font-bold px-2 py-0.5 rounded-full bg-sky-100 dark:bg-sky-950 text-sky-700 dark:text-sky-300">
                   {prog.accreditation}
                 </span>
               </div>
@@ -147,7 +147,7 @@ export const UniversityDirectory: React.FC<UniversityDirectoryProps> = ({ onOpen
               <div className="space-y-0.5">
                 <span className="text-[12px] text-slate-400 uppercase font-bold">Annual Tuition</span>
                 <div className="font-extrabold text-slate-900 dark:text-white">{prog.annualTuitionLocal}</div>
-                <div className="text-[12px] text-emerald-600 font-medium">{prog.annualTuitionUSD}</div>
+                <div className="text-[12px] text-sky-600 dark:text-sky-400 font-medium">{prog.annualTuitionUSD}</div>
               </div>
 
               <div className="space-y-0.5">
@@ -171,7 +171,7 @@ export const UniversityDirectory: React.FC<UniversityDirectoryProps> = ({ onOpen
             <div className="p-3 bg-slate-50 dark:bg-slate-800/40 rounded-2xl border border-slate-200/40 text-[12px] space-y-1">
               <div>
                 <strong className="text-slate-700 dark:text-slate-300">Post-Study Work Visa:</strong>{" "}
-                <span className="text-emerald-600 font-semibold">{prog.postStudyVisa}</span>
+                <span className="text-sky-600 dark:text-sky-400 font-semibold">{prog.postStudyVisa}</span>
               </div>
               <div>
                 <strong className="text-slate-700 dark:text-slate-300">Scholarship:</strong>{" "}
@@ -186,7 +186,7 @@ export const UniversityDirectory: React.FC<UniversityDirectoryProps> = ({ onOpen
               </span>
               <button
                 onClick={() => onOpenLeadModal(prog.country.toLowerCase())}
-                className="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition-all shadow-sm flex items-center gap-1.5"
+                className="px-4 py-2.5 bg-sky-600 hover:bg-sky-700 text-white rounded-xl text-xs font-bold transition-all shadow-sm flex items-center gap-1.5"
               >
                 <span>Check Eligibility & Apply</span>
                 <ChevronRight className="w-3.5 h-3.5" />
