@@ -1,101 +1,128 @@
-import Image from "next/image";
+"use client";
+
+import React, { useState } from "react";
+import { Navbar } from "@/components/Navbar";
+import { Hero } from "@/components/Hero";
+import { NursePassportBuilder } from "@/components/NursePassportBuilder";
+import { UniversityDirectory } from "@/components/UniversityDirectory";
+import { PharmacologyCatalog } from "@/components/PharmacologyCatalog";
+import { CorridorPlaybooks } from "@/components/CorridorPlaybooks";
+import { PathwayFinder } from "@/components/PathwayFinder";
+import { DosageCalcEngine } from "@/components/DosageCalcEngine";
+import { NclexSimulator } from "@/components/NclexSimulator";
+import { ClinicalReferenceHub } from "@/components/ClinicalReferenceHub";
+import { StudyVault } from "@/components/StudyVault";
+import { FlorenceAITutor } from "@/components/FlorenceAITutor";
+import { RecruiterPortal } from "@/components/RecruiterPortal";
+import { LeadModal } from "@/components/LeadModal";
+import { Footer } from "@/components/Footer";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [activeTab, setActiveTab] = useState<string>("passport");
+  const [isLeadModalOpen, setIsLeadModalOpen] = useState<boolean>(false);
+  const [selectedLeadCountry, setSelectedLeadCountry] = useState<string>("au");
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
+  const openLeadModalWithCountry = (countryId?: string) => {
+    if (countryId) setSelectedLeadCountry(countryId);
+    setIsLeadModalOpen(true);
+  };
+
+  const handlePartnerHandoff = (partnerType: string) => {
+    if (partnerType === "Direct Hospital Recruiter") {
+      setActiveTab("recruiter");
+    } else if (partnerType === "NCLEX Review Provider") {
+      setActiveTab("nclex");
+    } else {
+      openLeadModalWithCountry();
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-colors selection:bg-emerald-500/20 selection:text-emerald-800 dark:selection:text-emerald-200">
+      {/* Top Banner */}
+      <div className="bg-gradient-to-r from-emerald-700 via-teal-700 to-cyan-700 text-white text-xs py-2 px-4 text-center font-medium flex items-center justify-center gap-2">
+        <span className="bg-white/20 px-2 py-0.5 rounded-full text-[12px] font-bold uppercase tracking-wider">
+          2026 Global Nurse Relocation Initiative
+        </span>
+        <span>AHPRA OBA (Australia) & NextGen NCLEX (US/Canada) direct qualification files are now processing.</span>
+      </div>
+
+      {/* Sticky Navigation */}
+      <Navbar
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        openLeadModal={() => openLeadModalWithCountry()}
+      />
+
+      {/* Main Content Area */}
+      <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6 space-y-12">
+        {/* Hero Section */}
+        {activeTab === "passport" && (
+          <Hero
+            onStartQuiz={() => setActiveTab("corridors")}
+            onGetPassport={() => {
+              const el = document.getElementById("passport-section");
+              el?.scrollIntoView({ behavior: "smooth" });
+            }}
+          />
+        )}
+
+        {/* Tab View 0: Global Nurse Passport & NRI Engine (FLAGSHIP CORE) */}
+        {activeTab === "passport" && (
+          <div id="passport-section">
+            <NursePassportBuilder onPartnerHandoff={handlePartnerHandoff} />
+          </div>
+        )}
+
+        {/* Tab View 1: Accredited University & Nursing Degree Directory */}
+        {activeTab === "universities" && (
+          <UniversityDirectory onOpenLeadModal={openLeadModalWithCountry} />
+        )}
+
+        {/* Tab View 2: High-Yield Pharmacology Master Drug Library */}
+        {activeTab === "drugs" && <PharmacologyCatalog />}
+
+        {/* Tab View 3: High-Intent Migration Corridor Playbooks */}
+        {activeTab === "corridors" && (
+          <CorridorPlaybooks onSelectPassport={() => setActiveTab("passport")} />
+        )}
+
+        {/* Tab View 4: Dosage Calculation Practice Tool & Infinite Generator */}
+        {activeTab === "dosage" && <DosageCalcEngine />}
+
+        {/* Tab View 5: Multi-System NextGen NCLEX Simulator */}
+        {activeTab === "nclex" && <NclexSimulator />}
+
+        {/* Tab View 6: High-Yield Clinical Reference Hub & Converter */}
+        {activeTab === "reference" && <ClinicalReferenceHub />}
+
+        {/* Tab View 7: Free Study Vault & Resource Download Center */}
+        {activeTab === "vault" && <StudyVault />}
+
+        {/* Tab View 8: General Overseas Pathways Navigator */}
+        {activeTab === "pathways" && (
+          <PathwayFinder onOpenLeadModal={openLeadModalWithCountry} />
+        )}
+
+        {/* Tab View 9: Florence AI Tutor */}
+        {activeTab === "tutor" && <FlorenceAITutor />}
+
+        {/* Tab View 10: B2B Recruiter / Institutional Exchange */}
+        {activeTab === "recruiter" && <RecruiterPortal />}
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+      {/* Global Lead Capture Modal */}
+      <LeadModal
+        isOpen={isLeadModalOpen}
+        onClose={() => setIsLeadModalOpen(false)}
+        defaultCountry={selectedLeadCountry}
+      />
+
+      {/* Footer */}
+      <Footer
+        onSelectTab={setActiveTab}
+        onOpenLeadModal={() => openLeadModalWithCountry()}
+      />
     </div>
   );
 }
