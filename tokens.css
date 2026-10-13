@@ -1,0 +1,226 @@
+/* ===========================================================================
+   StudyNursing.net — design tokens
+   ---------------------------------------------------------------------------
+   Single source of truth for colour, type, spacing, radius and motion.
+   Never write a raw hex value in a component. If a value you need is missing,
+   add it here with a comment explaining why.
+
+   See docs/design-system.md for the rationale behind each decision.
+   =========================================================================== */
+
+:root {
+  /* -----------------------------------------------------------------------
+     Colour — surfaces
+     Warm off-white, never pure white. This is a reading surface.
+     ----------------------------------------------------------------------- */
+  --color-paper: #FBFAF7;
+  --color-paper-alt: #F2F0EA;
+  --color-surface: #FFFFFF;
+
+  /* -----------------------------------------------------------------------
+     Colour — ink scale
+     Deep green-black rather than neutral grey; it sits with the teal accent.
+     All steps meet 4.5:1 on --color-paper.
+     ----------------------------------------------------------------------- */
+  --color-ink: #15201C;
+  --color-ink-80: #27332E;
+  --color-ink-70: #3C4B45;
+  --color-ink-60: #4C5B55;
+  --color-ink-40: #6B7A74;
+
+  /* -----------------------------------------------------------------------
+     Colour — lines
+     ----------------------------------------------------------------------- */
+  --color-line: #DED9CF;
+  --color-line-soft: #EDE9E1;
+  --color-line-strong: #C9C2B5;
+
+  /* -----------------------------------------------------------------------
+     Colour — accent (teal)
+     Action and navigation. Clinical without the clichéd medical blue.
+     ----------------------------------------------------------------------- */
+  --color-accent: #0F5F52;
+  --color-accent-dark: #0A4337;
+  --color-accent-wash: #E6EFEC;
+  --color-accent-light: #8FD0BE; /* links/icons on ink backgrounds */
+
+  /* -----------------------------------------------------------------------
+     Colour — caution (amber)
+     RESERVED. Marks content that is dated, caveated, or needs independent
+     verification: review dates, "requirements change" notices, the
+     no-assessment panel, route caveats.
+     NEVER use for promotion, emphasis or decoration. See design-system.md §2.
+     ----------------------------------------------------------------------- */
+  --color-caution: #8A5A12;
+  --color-caution-text: #6E480E;
+  --color-caution-body: #5C3D0D;
+  --color-caution-wash: #F6EDDC;
+
+  /* -----------------------------------------------------------------------
+     Colour — on ink backgrounds (dark sections, footer)
+     ----------------------------------------------------------------------- */
+  --color-ink-surface: #1D2B26;
+  --color-ink-border: #33443E;
+  --color-ink-muted: #9DB3AC;
+  --color-ink-soft: #B9C7C2;
+
+  /* -----------------------------------------------------------------------
+     Typography — families
+     Fallbacks matter: a large share of this audience is on slow mobile
+     connections and must be able to read before webfonts arrive.
+     ----------------------------------------------------------------------- */
+  --font-serif: Newsreader, Georgia, "Times New Roman", serif;
+  --font-sans: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* -----------------------------------------------------------------------
+     Typography — scale
+     ----------------------------------------------------------------------- */
+  --text-display-xl: 3.75rem;   /* 60px — home hero only */
+  --text-display-lg: 3.25rem;   /* 52px — page H1 */
+  --text-display-md: 2.75rem;   /* 44px — tool page H1 */
+  --text-heading-xl: 2.375rem;  /* 38px — section H2 */
+  --text-heading-lg: 1.875rem;  /* 30px — sub-section H2 */
+  --text-heading-md: 1.625rem;  /* 26px — card/panel H2 */
+  --text-heading-sm: 1.5rem;    /* 24px — card H3 */
+  --text-quote: 1.4375rem;      /* 23px — pull quotes */
+  --text-body-lg: 1.1875rem;    /* 19px — hero sub-copy, article lead */
+  --text-body: 1.0625rem;       /* 17px — article body */
+  --text-body-sm: 1rem;         /* 16px — card body, UI */
+  --text-body-xs: 0.9375rem;    /* 15px — dense card body */
+  --text-meta: 0.875rem;        /* 14px — metadata, breadcrumbs */
+  --text-meta-sm: 0.8125rem;    /* 13px — captions, dates, eyebrows */
+  --text-label: 0.75rem;        /* 12px — badges, table headers */
+
+  --leading-tight: 1.1;
+  --leading-heading: 1.25;
+  --leading-body: 1.6;
+  --leading-article: 1.75;
+
+  --tracking-display: -0.02em;
+  --tracking-heading: -0.01em;
+  --tracking-eyebrow: 0.1em;
+  --tracking-label: 0.08em;
+
+  /* Measure caps */
+  --measure-body: 44em;
+  --measure-lead: 36em;
+
+  /* -----------------------------------------------------------------------
+     Spacing — 4px base
+     ----------------------------------------------------------------------- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-7: 1.75rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-14: 3.5rem;
+  --space-16: 4rem;
+  --space-18: 4.5rem;
+  --space-24: 6rem;
+
+  /* Layout */
+  --container-max: 1180px;
+  --container-pad: 2rem;        /* 32px desktop */
+  --container-pad-sm: 1.25rem;  /* 20px mobile */
+  --section-pad: 4.5rem;        /* 72px major sections */
+  --section-pad-sm: 4rem;       /* 64px minor sections */
+  --card-pad: 1.75rem;          /* 28px */
+  --grid-gutter: 1.5rem;        /* 24px */
+
+  /* -----------------------------------------------------------------------
+     Radius
+     ----------------------------------------------------------------------- */
+  --radius-sm: 4px;   /* badges, labels */
+  --radius-md: 6px;   /* buttons, inputs, nav */
+  --radius-lg: 10px;  /* cards, panels */
+  --radius-xl: 12px;  /* large feature panels */
+  --radius-full: 9999px;
+
+  /* -----------------------------------------------------------------------
+     Controls
+     44px is the accessibility floor and applies to every interactive element.
+     ----------------------------------------------------------------------- */
+  --control-min: 44px;
+  --control-height: 52px;
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+
+  /* -----------------------------------------------------------------------
+     Motion — restrained by intent. This is a reading surface.
+     ----------------------------------------------------------------------- */
+  --duration-fast: 120ms;
+  --duration-base: 180ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---------------------------------------------------------------------------
+   Base
+   --------------------------------------------------------------------------- */
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Figures, dates and data always align */
+.tabular,
+table,
+time,
+.stat {
+  font-variant-numeric: tabular-nums;
+}
+
+a {
+  color: var(--color-accent);
+}
+
+a:hover {
+  color: var(--color-accent-dark);
+}
+
+/* Focus is never removed. If you are tempted to, you want :focus-visible. */
+:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-accent);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* Skip link — first focusable element on every page */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  padding: var(--space-3) var(--space-5);
+  background: var(--color-ink);
+  color: var(--color-paper);
+  border-radius: 0 0 var(--radius-md) 0;
+}
+
+.skip-link:focus {
+  left: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
