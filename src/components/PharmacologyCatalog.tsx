@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { DRUG_DATABASE } from "@/data/drugs";
-import { Pill, Search, Sparkles, ChevronDown, ChevronUp, AlertTriangle } from "lucide-react";
+import { Search, ChevronDown, AlertTriangle, Lightbulb } from "lucide-react";
 
 export const PharmacologyCatalog: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -21,195 +21,180 @@ export const PharmacologyCatalog: React.FC = () => {
     return matchesSearch && matchesSystem;
   });
 
-  const systems = ["All", "Cardiovascular", "Anticoagulation", "Infectious Disease", "Endocrine"];
+  const systems = [
+    "All",
+    "Cardiovascular",
+    "Anticoagulation",
+    "Infectious Disease",
+    "Endocrine",
+  ];
 
   return (
-    <section className="space-y-8">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-5">
-        <div>
-          <div className="inline-flex items-center gap-1.5 text-xs font-bold text-teal-600 dark:text-teal-400 uppercase tracking-wider mb-1">
-            <Pill className="w-3.5 h-3.5" />
-            <span>High-Yield Board Pharmacology Library</span>
-          </div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
-            Top 50 Board Medications & Brand Translators
-          </h2>
-          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 max-w-2xl">
-            Translate US vs Commonwealth (Australia/UK) brand names, review high-alert black box warnings, and master memorable mnemonics for the NextGen NCLEX and AHPRA OBA.
-          </p>
-        </div>
-
-        <div className="flex items-center gap-2 p-3 bg-teal-50 dark:bg-teal-950/40 border border-teal-500/20 rounded-2xl text-xs">
-          <Sparkles className="w-4 h-4 text-teal-600" />
-          <div>
-            <div className="font-bold text-slate-900 dark:text-white">Dual-Standard Nomenclature</div>
-            <div className="text-[12px] text-teal-700 dark:text-teal-300">US FDA & Commonwealth TGA aligned</div>
-          </div>
-        </div>
+    <div className="space-y-6 font-sans">
+      
+      {/* Educational Notice */}
+      <div className="bg-caution-wash border border-caution/25 rounded-md p-4 text-meta text-caution-body">
+        <strong>Examination preparation notice:</strong> This pharmacology cross-reference is designed for nurses translating medication nomenclature between US (FDA / USP) and Commonwealth (TGA / BNF) nursing examinations. It is an educational reference, not clinical prescribing advice.
       </div>
 
       {/* Search and Filters Bar */}
-      <div className="p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-sm space-y-4">
+      <div className="bg-surface border border-line rounded-lg p-5 sm:p-6 space-y-4">
         <div className="flex flex-col sm:flex-row gap-3">
+          
           <div className="relative flex-1">
-            <Search className="w-4 h-4 absolute left-3.5 top-3 text-slate-400" />
+            <Search className="w-4 h-4 absolute left-3.5 top-3 text-ink-40" aria-hidden="true" />
             <input
               type="text"
-              placeholder="Search drug (e.g. Furosemide, Lasix, Digoxin, Heparin, Metformin)..."
+              placeholder="Search medication by generic or brand name (e.g. Furosemide, Lasix, Paracetamol, Metformin)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs text-slate-900 dark:text-white focus:outline-none focus:border-teal-500"
+              className="w-full pl-10 pr-4 py-2.5 bg-paper border border-line-strong rounded-md text-body-xs text-ink placeholder:text-ink-40 focus:outline-accent min-h-control"
             />
           </div>
 
-          <div className="flex flex-wrap items-center gap-2 text-xs">
+          <div className="flex flex-wrap items-center gap-1.5 text-body-xs">
             {systems.map((sys) => (
               <button
                 key={sys}
+                type="button"
                 onClick={() => setSelectedSystem(sys)}
-                className={`px-3 py-2 rounded-xl font-medium transition-all ${
+                className={`px-3 py-2 rounded-md transition-colors min-h-control border ${
                   selectedSystem === sys
-                    ? "bg-teal-600 text-white font-bold shadow-sm"
-                    : "bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-100"
+                    ? "bg-accent text-white font-semibold border-accent"
+                    : "bg-surface text-ink-70 border-line hover:bg-paper-alt"
                 }`}
               >
                 {sys}
               </button>
             ))}
           </div>
+
+        </div>
+
+        <div className="text-meta-sm text-ink-40">
+          Showing {filteredDrugs.length} high-yield medications across US and Commonwealth curricula
         </div>
       </div>
 
-      {/* Drug Cards Grid */}
-      <div className="space-y-4">
+      {/* Drug List Accordion Cards */}
+      <div className="space-y-3">
         {filteredDrugs.map((drug) => {
           const isExpanded = expandedDrugId === drug.id;
+
           return (
             <div
               key={drug.id}
-              className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-sm transition-all overflow-hidden"
+              className="bg-surface border border-line rounded-lg overflow-hidden transition-colors"
             >
-              {/* Card Header (Click to toggle) */}
-              <div
+              {/* Header Bar */}
+              <button
+                type="button"
                 onClick={() => setExpandedDrugId(isExpanded ? null : drug.id)}
-                className="p-5 sm:p-6 cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-slate-50/50 dark:hover:bg-slate-800/20 transition-colors"
+                className="w-full text-left p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-paper-alt/50 transition-colors"
+                aria-expanded={isExpanded}
               >
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
-                    <span className="text-base sm:text-lg font-black text-slate-900 dark:text-white">
+                    <span className="font-serif text-heading-md font-semibold text-ink">
                       {drug.genericName}
                     </span>
-                    <span className="text-[12px] font-bold px-2 py-0.5 rounded-full bg-teal-100 dark:bg-teal-950 text-teal-700 dark:text-teal-300">
-                      {drug.drugClass}
-                    </span>
-                    <span className="text-[12px] text-slate-400 hidden sm:inline">
-                      • {drug.system}
+                    <span className="text-label uppercase tracking-label px-2 py-0.5 rounded-sm bg-accent-wash text-accent-dark font-bold">
+                      {drug.system}
                     </span>
                   </div>
-
-                  {/* Brand Comparison Row */}
-                  <div className="text-xs text-slate-600 dark:text-slate-400 flex flex-wrap items-center gap-x-4 gap-y-1">
-                    <span>
-                      <strong className="text-slate-800 dark:text-slate-200">🇺🇸 US Brand:</strong> {drug.usBrandName}
-                    </span>
-                    <span>
-                      <strong className="text-slate-800 dark:text-slate-200">🇦🇺/🇬🇧 Commonwealth:</strong> {drug.commonwealthBrandName}
-                    </span>
+                  <div className="text-body-xs text-ink-60">
+                    Class: <span className="text-ink-80 font-medium">{drug.drugClass}</span>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3 shrink-0 self-end sm:self-center">
-                  <span className="text-xs font-semibold text-teal-600">
-                    {isExpanded ? "Hide Details" : "View Clinical Card"}
-                  </span>
-                  {isExpanded ? (
-                    <ChevronUp className="w-5 h-5 text-slate-400" />
-                  ) : (
-                    <ChevronDown className="w-5 h-5 text-slate-400" />
-                  )}
-                </div>
-              </div>
+                <div className="flex items-center gap-6">
+                  {/* Brand Comparison Badges */}
+                  <div className="flex flex-wrap items-center gap-2 text-meta-sm tabular">
+                    <span className="px-2.5 py-1 rounded bg-paper-alt text-ink-70 border border-line-soft">
+                      US Brand: <strong className="text-ink">{drug.usBrandName}</strong>
+                    </span>
+                    <span className="px-2.5 py-1 rounded bg-paper-alt text-ink-70 border border-line-soft">
+                      Commonwealth: <strong className="text-ink">{drug.commonwealthBrandName}</strong>
+                    </span>
+                  </div>
 
-              {/* Expanded Card Details */}
+                  <ChevronDown
+                    className={`w-4 h-4 text-ink-40 transition-transform shrink-0 ${
+                      isExpanded ? "rotate-180" : ""
+                    }`}
+                    aria-hidden="true"
+                  />
+                </div>
+              </button>
+
+              {/* Expanded Clinical Details */}
               {isExpanded && (
-                <div className="px-5 pb-6 sm:px-6 space-y-5 border-t border-slate-100 dark:border-slate-800 pt-5 text-xs animate-in fade-in duration-200">
-                  {/* Indications & Mechanism */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="p-4 bg-slate-50 dark:bg-slate-800/40 rounded-2xl border border-slate-200/60 dark:border-slate-700/60 space-y-1">
-                      <span className="font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide text-[12px]">
-                        Clinical Indications
-                      </span>
-                      <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
-                        {drug.indications}
-                      </p>
+                <div className="px-5 pb-6 sm:px-6 pt-2 border-t border-line-soft space-y-5 text-body-xs leading-article">
+                  
+                  {/* Mechanism & Indications Grid */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-3">
+                    <div className="space-y-1 bg-paper-alt p-4 rounded border border-line-soft">
+                      <div className="text-eyebrow text-ink-40">Primary Indications</div>
+                      <div className="text-ink-80 font-medium">{drug.indications}</div>
                     </div>
-
-                    <div className="p-4 bg-slate-50 dark:bg-slate-800/40 rounded-2xl border border-slate-200/60 dark:border-slate-700/60 space-y-1">
-                      <span className="font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide text-[12px]">
-                        Mechanism of Action
-                      </span>
-                      <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
-                        {drug.mechanismOfAction}
-                      </p>
+                    <div className="space-y-1 bg-paper-alt p-4 rounded border border-line-soft">
+                      <div className="text-eyebrow text-ink-40">Mechanism of Action</div>
+                      <div className="text-ink-80">{drug.mechanismOfAction}</div>
                     </div>
                   </div>
 
-                  {/* Black Box Warning Alert */}
-                  <div className="p-4 bg-red-50 dark:bg-red-950/30 border border-red-500/30 rounded-2xl text-xs flex items-start gap-3 text-red-900 dark:text-red-200">
-                    <AlertTriangle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
-                    <div>
-                      <span className="font-bold uppercase tracking-wider text-[12px] text-red-700 dark:text-red-400">
-                        Critical Black Box Warning & Adverse Effects:
-                      </span>
-                      <p className="mt-0.5 leading-relaxed font-semibold">
-                        {drug.blackBoxWarning}
-                      </p>
+                  {/* Black Box / High-Alert Warning */}
+                  {drug.blackBoxWarning && (
+                    <div className="rounded-md bg-caution-wash border border-caution/30 p-4 text-caution-body flex items-start gap-3">
+                      <AlertTriangle className="w-4 h-4 text-caution shrink-0 mt-0.5" aria-hidden="true" />
+                      <div className="space-y-1">
+                        <strong className="text-caution-text text-body-sm font-semibold">
+                          High-Alert Nursing Consideration & Warning:
+                        </strong>
+                        <p className="text-body-xs">{drug.blackBoxWarning}</p>
+                      </div>
                     </div>
-                  </div>
+                  )}
 
-                  {/* Nursing Considerations Checklist */}
-                  <div className="space-y-2">
-                    <span className="font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider text-[12px]">
-                      Essential Nursing Considerations & Patient Teaching:
-                    </span>
-                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-slate-600 dark:text-slate-400">
+                  {/* High-Yield Nursing Mnemonic */}
+                  {drug.memoryMnemonic && (
+                    <div className="rounded-md bg-surface border border-accent/30 p-4 text-ink flex items-start gap-3">
+                      <Lightbulb className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />
+                      <div className="space-y-1">
+                        <span className="text-eyebrow text-accent font-bold">
+                          Board Memory Anchor
+                        </span>
+                        <p className="text-body-xs text-ink-80 font-mono">
+                          {drug.memoryMnemonic}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Clinical Monitoring Rules */}
+                  <div className="space-y-2 pt-1">
+                    <div className="text-eyebrow text-ink-40">Nursing Assessment & Monitoring</div>
+                    <ul className="list-disc pl-5 space-y-1 text-ink-70 text-body-xs">
                       {drug.nursingConsiderations.map((item, idx) => (
-                        <li key={idx} className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/30 border border-slate-100 dark:border-slate-800 flex items-start gap-2">
-                          <span className="text-teal-600 font-bold shrink-0">✓</span>
-                          <span>{item}</span>
-                        </li>
+                        <li key={idx}>{item}</li>
                       ))}
                     </ul>
                   </div>
 
-                  {/* Memory Mnemonic Card */}
-                  <div className="p-4 rounded-2xl bg-gradient-to-r from-amber-500/10 to-teal-500/10 border border-amber-500/20 flex items-center justify-between gap-4">
-                    <div className="space-y-0.5">
-                      <span className="text-[12px] font-bold text-amber-700 dark:text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
-                        <Sparkles className="w-3.5 h-3.5" />
-                        <span>High-Yield Board Memory Trick</span>
-                      </span>
-                      <div className="font-bold text-sm text-slate-900 dark:text-white">
-                        {drug.memoryMnemonic}
-                      </div>
+                  {/* Reversal / Antidote */}
+                  {drug.antidoteOrReversal && (
+                    <div className="text-meta-sm text-accent-dark bg-accent-wash/50 p-2.5 rounded border border-accent/20">
+                      <strong>Reversal / Antidote:</strong> {drug.antidoteOrReversal}
                     </div>
+                  )}
 
-                    {drug.antidoteOrReversal && (
-                      <div className="shrink-0 text-right">
-                        <span className="text-[12px] text-slate-400 uppercase font-bold">Specific Antidote</span>
-                        <div className="font-black text-rose-600 dark:text-rose-400">
-                          {drug.antidoteOrReversal}
-                        </div>
-                      </div>
-                    )}
-                  </div>
                 </div>
               )}
             </div>
           );
         })}
       </div>
-    </section>
+
+    </div>
   );
 };
