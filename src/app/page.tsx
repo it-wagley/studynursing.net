@@ -5,6 +5,7 @@ import { UtilityBar } from "@/components/UtilityBar";
 import { Navbar } from "@/components/Navbar";
 import { HomePage } from "@/components/HomePage";
 import { Footer } from "@/components/Footer";
+import { DestinationCompare } from "@/components/DestinationCompare";
 import { DosageCalcEngine } from "@/components/DosageCalcEngine";
 import { NclexSimulator } from "@/components/NclexSimulator";
 import { PharmacologyCatalog } from "@/components/PharmacologyCatalog";
@@ -30,7 +31,12 @@ export default function App() {
       return <HomePage onNavigate={handleNavigate} />;
     }
 
-    // 2. Exam Spine Routes (Step 5)
+    // 2. Compare Destinations (Step 7)
+    if (currentPath === "/compare") {
+      return <DestinationCompare onNavigate={handleNavigate} />;
+    }
+
+    // 3. Exam Spine Routes (Step 5)
     if (currentPath === "/exams") {
       return <ExamsIndex onNavigate={handleNavigate} />;
     }
@@ -44,7 +50,7 @@ export default function App() {
       return <EnglishExamGuide onNavigate={handleNavigate} />;
     }
 
-    // 3. Australia Registration & Pathways (Step 6)
+    // 4. Australia Registration & Pathways (Step 6)
     if (currentPath === "/register" || currentPath === "/register/australia") {
       return <AustraliaRegisterPage onNavigate={handleNavigate} />;
     }
@@ -52,7 +58,7 @@ export default function App() {
       return <AustraliaPathwaysPage onNavigate={handleNavigate} />;
     }
 
-    // 4. Practice Tools (Step 4 keepers)
+    // 5. Practice Tools (Step 4 keepers)
     if (currentPath === "/tools" || currentPath === "/tools/dosage") {
       return (
         <div className="space-y-6">
