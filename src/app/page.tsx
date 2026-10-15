@@ -22,6 +22,17 @@ import { SingaporeRegisterPage } from "@/components/SingaporeRegisterPage";
 import { CanadaRegisterPage } from "@/components/CanadaRegisterPage";
 import { IrelandRegisterPage } from "@/components/IrelandRegisterPage";
 import { UsRegisterPage } from "@/components/UsRegisterPage";
+import { GulfIndexPage } from "@/components/GulfIndexPage";
+import { GulfTheWorkPage } from "@/components/GulfTheWorkPage";
+import { GulfContractsPage } from "@/components/GulfContractsPage";
+import { GulfMoneyPage } from "@/components/GulfMoneyPage";
+import { GulfAdjustingPage } from "@/components/GulfAdjustingPage";
+import { GulfYourNextMovePage } from "@/components/GulfYourNextMovePage";
+import { AboutPage } from "@/components/AboutPage";
+import { SourcesIndexPage } from "@/components/SourcesIndexPage";
+import { AdvisersPage } from "@/components/AdvisersPage";
+import { StudyPage } from "@/components/StudyPage";
+import { StoriesPage } from "@/components/StoriesPage";
 
 export default function App() {
   const [currentPath, setCurrentPath] = useState<string>("/");
@@ -82,7 +93,44 @@ export default function App() {
       return <UsRegisterPage onNavigate={handleNavigate} />;
     }
 
-    // 5. Practice Tools (Step 4 keepers)
+    // 5. Working in the Gulf (Step 9)
+    if (currentPath === "/gulf") {
+      return <GulfIndexPage onNavigate={handleNavigate} />;
+    }
+    if (currentPath === "/gulf/the-work") {
+      return <GulfTheWorkPage onNavigate={handleNavigate} />;
+    }
+    if (currentPath === "/gulf/contracts") {
+      return <GulfContractsPage onNavigate={handleNavigate} />;
+    }
+    if (currentPath === "/gulf/money") {
+      return <GulfMoneyPage onNavigate={handleNavigate} />;
+    }
+    if (currentPath === "/gulf/adjusting") {
+      return <GulfAdjustingPage onNavigate={handleNavigate} />;
+    }
+    if (currentPath === "/gulf/your-next-move") {
+      return <GulfYourNextMovePage onNavigate={handleNavigate} />;
+    }
+
+    // 6. Supporting Institutional Content (Step 10)
+    if (currentPath === "/about") {
+      return <AboutPage onNavigate={handleNavigate} />;
+    }
+    if (currentPath === "/sources") {
+      return <SourcesIndexPage onNavigate={handleNavigate} />;
+    }
+    if (currentPath === "/advisers") {
+      return <AdvisersPage onNavigate={handleNavigate} />;
+    }
+    if (currentPath === "/study") {
+      return <StudyPage onNavigate={handleNavigate} />;
+    }
+    if (currentPath === "/stories") {
+      return <StoriesPage onNavigate={handleNavigate} />;
+    }
+
+    // 7. Practice Tools (Step 4 keepers)
     if (currentPath === "/tools" || currentPath === "/tools/dosage") {
       return (
         <div className="space-y-6">
@@ -134,7 +182,7 @@ export default function App() {
       );
     }
 
-    if (currentPath === "/tools/clinical-reference") {
+    if (currentPath === "/tools/clinical-reference" || currentPath === "/tools/downloads") {
       return (
         <div className="space-y-6">
           <div className="border-b border-line pb-4">
