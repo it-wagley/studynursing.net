@@ -16,6 +16,12 @@ import { OsceExamGuide } from "@/components/OsceExamGuide";
 import { EnglishExamGuide } from "@/components/EnglishExamGuide";
 import { AustraliaRegisterPage } from "@/components/AustraliaRegisterPage";
 import { AustraliaPathwaysPage } from "@/components/AustraliaPathwaysPage";
+import { UkRegisterPage } from "@/components/UkRegisterPage";
+import { NewZealandRegisterPage } from "@/components/NewZealandRegisterPage";
+import { SingaporeRegisterPage } from "@/components/SingaporeRegisterPage";
+import { CanadaRegisterPage } from "@/components/CanadaRegisterPage";
+import { IrelandRegisterPage } from "@/components/IrelandRegisterPage";
+import { UsRegisterPage } from "@/components/UsRegisterPage";
 
 export default function App() {
   const [currentPath, setCurrentPath] = useState<string>("/");
@@ -50,12 +56,30 @@ export default function App() {
       return <EnglishExamGuide onNavigate={handleNavigate} />;
     }
 
-    // 4. Australia Registration & Pathways (Step 6)
+    // 4. Registration Destination Guides (Step 6 & 8)
     if (currentPath === "/register" || currentPath === "/register/australia") {
       return <AustraliaRegisterPage onNavigate={handleNavigate} />;
     }
     if (currentPath === "/register/australia/pathways") {
       return <AustraliaPathwaysPage onNavigate={handleNavigate} />;
+    }
+    if (currentPath === "/register/united-kingdom") {
+      return <UkRegisterPage onNavigate={handleNavigate} />;
+    }
+    if (currentPath === "/register/new-zealand") {
+      return <NewZealandRegisterPage onNavigate={handleNavigate} />;
+    }
+    if (currentPath === "/register/singapore") {
+      return <SingaporeRegisterPage onNavigate={handleNavigate} />;
+    }
+    if (currentPath === "/register/canada") {
+      return <CanadaRegisterPage onNavigate={handleNavigate} />;
+    }
+    if (currentPath === "/register/ireland") {
+      return <IrelandRegisterPage onNavigate={handleNavigate} />;
+    }
+    if (currentPath === "/register/united-states") {
+      return <UsRegisterPage onNavigate={handleNavigate} />;
     }
 
     // 5. Practice Tools (Step 4 keepers)
