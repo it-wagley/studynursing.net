@@ -33,6 +33,8 @@ import { SourcesIndexPage } from "@/components/SourcesIndexPage";
 import { AdvisersPage } from "@/components/AdvisersPage";
 import { StudyPage } from "@/components/StudyPage";
 import { StoriesPage } from "@/components/StoriesPage";
+import { FlorenceAITutor } from "@/components/FlorenceAITutor";
+import { Calculator, FileText, Pill, BookOpen, Bot, ArrowRight } from "lucide-react";
 
 export default function App() {
   const [currentPath, setCurrentPath] = useState<string>("/");
@@ -130,8 +132,131 @@ export default function App() {
       return <StoriesPage onNavigate={handleNavigate} />;
     }
 
-    // 7. Practice Tools (Step 4 keepers)
-    if (currentPath === "/tools" || currentPath === "/tools/dosage") {
+    // 7. Florence AI Study Tutor (Step 11)
+    if (currentPath === "/tools/tutor") {
+      return <FlorenceAITutor />;
+    }
+
+    // 8. Practice Tools Directory
+    if (currentPath === "/tools") {
+      return (
+        <div className="space-y-8 font-sans">
+          <div className="border-b border-line pb-4">
+            <span className="text-eyebrow text-ink-60">Practice &amp; Study Tools</span>
+            <h1 className="font-serif text-display-md text-ink font-normal mt-1">
+              Free Examination Preparation Hub
+            </h1>
+            <p className="text-body-sm text-ink-70 mt-1 max-w-lead leading-relaxed">
+              Ungated clinical calculation engines, electronic health record case simulators, pharmacology translation tables, and the Florence AI study companion. Free to use with no account or email required.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className="bg-surface border border-line rounded-lg p-5 flex flex-col justify-between space-y-4 hover:border-line-strong transition-colors">
+              <div className="space-y-2">
+                <div className="w-9 h-9 rounded bg-accent-wash flex items-center justify-center text-accent">
+                  <Calculator className="w-5 h-5" />
+                </div>
+                <h2 className="font-serif text-heading-sm text-ink font-semibold">Dosage Calculations</h2>
+                <p className="text-body-sm text-ink-70 leading-relaxed">
+                  Infinitely generated IV drip rates, weight-based pediatrics, and dimensional analysis formulas.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => handleNavigate("/tools/dosage")}
+                className="inline-flex items-center gap-1 text-body-sm font-semibold text-accent hover:text-accent-dark pt-2"
+              >
+                <span>Launch engine</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="bg-surface border border-line rounded-lg p-5 flex flex-col justify-between space-y-4 hover:border-line-strong transition-colors">
+              <div className="space-y-2">
+                <div className="w-9 h-9 rounded bg-accent-wash flex items-center justify-center text-accent">
+                  <FileText className="w-5 h-5" />
+                </div>
+                <h2 className="font-serif text-heading-sm text-ink font-semibold">NCLEX Case Studies</h2>
+                <p className="text-body-sm text-ink-70 leading-relaxed">
+                  Interactive NextGen NCLEX unfolding electronic health record (EHR) charts with CJMM rationales.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => handleNavigate("/tools/nclex-cases")}
+                className="inline-flex items-center gap-1 text-body-sm font-semibold text-accent hover:text-accent-dark pt-2"
+              >
+                <span>Practice cases</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="bg-surface border border-line rounded-lg p-5 flex flex-col justify-between space-y-4 hover:border-line-strong transition-colors">
+              <div className="space-y-2">
+                <div className="w-9 h-9 rounded bg-accent-wash flex items-center justify-center text-accent">
+                  <Pill className="w-5 h-5" />
+                </div>
+                <h2 className="font-serif text-heading-sm text-ink font-semibold">Drug Name Translations</h2>
+                <p className="text-body-sm text-ink-70 leading-relaxed">
+                  US FDA brand and generic medications cross-referenced with UK (BNF) and Commonwealth (TGA) equivalents.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => handleNavigate("/tools/drug-names")}
+                className="inline-flex items-center gap-1 text-body-sm font-semibold text-accent hover:text-accent-dark pt-2"
+              >
+                <span>View catalog</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="bg-surface border border-line rounded-lg p-5 flex flex-col justify-between space-y-4 hover:border-line-strong transition-colors">
+              <div className="space-y-2">
+                <div className="w-9 h-9 rounded bg-accent-wash flex items-center justify-center text-accent">
+                  <BookOpen className="w-5 h-5" />
+                </div>
+                <h2 className="font-serif text-heading-sm text-ink font-semibold">Clinical Pocket Reference</h2>
+                <p className="text-body-sm text-ink-70 leading-relaxed">
+                  Emergency antidote reference tables, international lab range comparisons, and blood glucose converters.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => handleNavigate("/tools/clinical-reference")}
+                className="inline-flex items-center gap-1 text-body-sm font-semibold text-accent hover:text-accent-dark pt-2"
+              >
+                <span>Open reference</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="bg-surface border border-line rounded-lg p-5 flex flex-col justify-between space-y-4 hover:border-line-strong transition-colors">
+              <div className="space-y-2">
+                <div className="w-9 h-9 rounded bg-accent-wash flex items-center justify-center text-accent">
+                  <Bot className="w-5 h-5" />
+                </div>
+                <h2 className="font-serif text-heading-sm text-ink font-semibold">Florence AI Study Tutor</h2>
+                <p className="text-body-sm text-ink-70 leading-relaxed">
+                  Interactive AI study companion answering dosage math, pharmacology mechanisms, and NCLEX questions.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => handleNavigate("/tools/tutor")}
+                className="inline-flex items-center gap-1 text-body-sm font-semibold text-accent hover:text-accent-dark pt-2"
+              >
+                <span>Ask Florence</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (currentPath === "/tools/dosage") {
       return (
         <div className="space-y-6">
           <div className="border-b border-line pb-4">

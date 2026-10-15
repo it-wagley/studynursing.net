@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { searchTutorKnowledge } from "@/data/tutorKnowledge";
+import { searchTutorKnowledge, checkRefusal } from "@/data/tutorKnowledge";
 
 export async function POST(req: Request) {
   try {
@@ -9,32 +9,40 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Message is required." }, { status: 400 });
     }
 
-    // Tier 1: Check knowledge base / pre-computed high-yield articles (Zero LLM cost)
+    // Tier 1: Strict Regulatory & Immigration Refusal Filter (editorial-boundaries.md §5)
+    const refusal = checkRefusal(message);
+    if (refusal) {
+      return NextResponse.json({
+        source: "editorial_refusal_boundary",
+        cost: "$0.00",
+        response: refusal
+      });
+    }
+
+    // Tier 2: Check Pre-Approved Study & Exam Preparation Corpus
     const localMatch = searchTutorKnowledge(message);
     if (localMatch) {
       return NextResponse.json({
-        source: "grounded_knowledge_base",
+        source: "grounded_study_corpus",
         cost: "$0.00",
         response: localMatch
       });
     }
 
-    // Tier 2: Evidence-based fallback clinical tutor response
-    // When live GEMINI_API_KEY is configured in .env, it can call Gemini Flash.
-    // Otherwise, it returns a structured clinical reasoning breakdown.
+    // Tier 3: General Clinical Study & Exam Preparation Reasoning
     const defaultResponse = `
-### Clinical Tutor Analysis:
-Thank you for your question on **"${message}"**.
+### Academic Clinical Study Analysis:
+Thank you for your study question on **"${message}"**.
 
-* **Key Clinical Principle:** Always prioritize **Airway, Breathing, and Circulation (ABCs)** followed by patient safety and infection prevention.
-* **International Consideration:** When studying overseas (e.g. Australia vs US), verify whether the guideline references Commonwealth nomenclature (e.g. AHPRA/TGA standards) or FDA/AHA guidelines.
-* **NextGen NCLEX Alignment:** Focus on the Clinical Judgment Measurement Model (CJMM) — identify cues first before jumping directly to interventions.
+* **Core Nursing Safety Principle:** Always prioritize **Airway, Breathing, and Circulation (ABCs)** followed by patient safety, infection prevention, and least-invasive interventions.
+* **International Exam Strategy:** When preparing for Commonwealth exams (Australia / UK / NZ) vs the US NCLEX, note whether drug names follow Commonwealth nomenclature (e.g., Paracetamol, Adrenaline) or US FDA names (e.g., Acetaminophen, Epinephrine).
+* **NextGen NCLEX Framework:** Align with the Clinical Judgment Measurement Model (CJMM)—carefully recognize vital sign and laboratory cues before selecting an action.
 
-*Tip: You can ask me specific questions like "Paracetamol vs Acetaminophen", "ACE inhibitors vs ARBs", "AHPRA OBA requirements", or try our Dosage Calculation practice tools!*
+*Notice: Florence is a study and exam tutor only. Content is designed strictly for examination preparation and academic study. It does not constitute clinical advice for real patients or regulatory guidance.*
     `.trim();
 
     return NextResponse.json({
-      source: "clinical_tutor_engine",
+      source: "academic_study_engine",
       cost: "$0.00",
       response: defaultResponse
     });

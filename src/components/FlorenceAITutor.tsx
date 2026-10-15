@@ -1,14 +1,13 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { Bot, Send, BookOpen, ShieldCheck } from "lucide-react";
+import { Send, GraduationCap, ShieldAlert } from "lucide-react";
 
 interface ChatMessage {
   id: string;
   sender: "user" | "ai";
   text: string;
   source?: string;
-  cost?: string;
   timestamp: string;
 }
 
@@ -17,9 +16,8 @@ export const FlorenceAITutor: React.FC = () => {
     {
       id: "m-welcome",
       sender: "ai",
-      text: "Hello! I am Florence AI, your 24/7 international nursing study tutor. I am grounded directly in verified AHPRA protocols, NextGen NCLEX standards, and pharmacology differences between Australia, the US, and the UK. What can I help you study today?",
-      source: "Grounded StudyNursing Knowledge Base",
-      cost: "$0.00",
+      text: "Hello! I am Florence, your nursing study and exam preparation tutor. I can help you master clinical dosage calculations, pharmacology mechanisms, US ↔ Commonwealth drug names, and NextGen NCLEX clinical judgment rationales.\n\n*(Note: Under our editorial charter, I am a study tutor only. I do not answer questions about registration pathways, visas, timelines, fees, or evaluate individual eligibility.)*",
+      source: "Grounded Study Corpus",
       timestamp: "Just now"
     }
   ]);
@@ -62,9 +60,8 @@ export const FlorenceAITutor: React.FC = () => {
       const aiMsg: ChatMessage = {
         id: "ai-" + Date.now(),
         sender: "ai",
-        text: data.response || "I could not retrieve an answer at this moment.",
-        source: data.source === "grounded_knowledge_base" ? "Verified Web Content ($0.00)" : "Clinical Tutor Engine",
-        cost: data.cost || "$0.00",
+        text: data.response || "I could not retrieve a study rationale at this moment.",
+        source: data.source === "editorial_refusal_boundary" ? "Editorial Refusal Policy" : "Grounded Study Corpus",
         timestamp: "Just now"
       };
 
@@ -76,7 +73,7 @@ export const FlorenceAITutor: React.FC = () => {
         {
           id: "err-" + Date.now(),
           sender: "ai",
-          text: "Network error connecting to tutor service. Please try again.",
+          text: "Network error connecting to study tutor. Please check your connection and try again.",
           timestamp: "Just now"
         }
       ]);
@@ -86,47 +83,51 @@ export const FlorenceAITutor: React.FC = () => {
   };
 
   const highYieldChips = [
-    { label: "🇦🇺 AU vs 🇺🇸 US drug names (Paracetamol vs Acetaminophen)", query: "au vs us drug names paracetamol" },
-    { label: "💊 ACE Inhibitors vs ARBs mnemonics", query: "ace inhibitors vs arbs mnemonics" },
-    { label: "🌏 AHPRA OBA vs NCLEX overview", query: "ahpra oba osce australia overview" },
-    { label: "🧮 Dimensional Analysis golden rules", query: "dosage dimensional analysis formula" }
+    { label: "🧮 Dosage: IV Drip Rate (gtt/min) formula", query: "dosage dimensional analysis formula drip rate" },
+    { label: "💊 ACE Inhibitors vs ARBs mechanism & cough", query: "ace inhibitors vs arbs cough mechanism" },
+    { label: "🇦🇺 US vs Commonwealth drug names (Paracetamol vs Acetaminophen)", query: "paracetamol vs acetaminophen commonwealth us drug names" },
+    { label: "💉 Anticoagulant reversals (Heparin & Warfarin antidotes)", query: "heparin warfarin antidote reversal protamine vitamin k" },
+    { label: "🧠 NextGen NCLEX: The 6 steps of CJMM", query: "nextgen nclex cjmm clinical judgment steps" }
   ];
 
   return (
-    <section className="space-y-6">
+    <div className="space-y-6 font-sans">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-5">
-        <div>
-          <div className="inline-flex items-center gap-1.5 text-xs font-bold text-teal-600 dark:text-teal-400 uppercase tracking-wider mb-1">
-            <Bot className="w-3.5 h-3.5" />
-            <span>24/7 Clinical & Academic Assistant</span>
-          </div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
-            Florence AI Clinical Tutor
-          </h2>
-          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">
-            Zero-hallucination assistant grounded directly in your study guides, pharmacology cards, and overseas pathways.
-          </p>
+      <div className="border-b border-line pb-5 space-y-2">
+        <div className="flex items-center gap-2 text-eyebrow text-accent font-bold uppercase tracking-eyebrow">
+          <GraduationCap className="w-4 h-4" />
+          <span>Study &amp; Examination Tutor</span>
         </div>
+        <h1 className="font-serif text-display-md text-ink font-normal tracking-tight">
+          Florence AI Study Tutor
+        </h1>
+        <p className="text-body-sm text-ink-70 max-w-lead leading-relaxed">
+          Ungated clinical math, pharmacology mechanisms, drug nomenclature, and NextGen NCLEX rationales for international nurses.
+        </p>
+      </div>
 
-        <div className="flex items-center gap-2 bg-teal-50 dark:bg-teal-950/40 border border-teal-500/20 px-3.5 py-1.5 rounded-xl text-xs text-teal-800 dark:text-teal-300">
-          <ShieldCheck className="w-4 h-4 text-teal-600" />
-          <span>Grounded in StudyNursing Guides • Cost: $0.00/query</span>
+      {/* Editorial Boundary Banner */}
+      <div className="bg-caution-wash border border-caution-border rounded-lg p-4 flex items-start gap-3">
+        <ShieldAlert className="w-5 h-5 text-caution shrink-0 mt-0.5" />
+        <div className="text-meta-sm text-ink-70 leading-relaxed">
+          <strong className="text-ink font-semibold block">Study tutor only:</strong>
+          Florence contains no regulatory, visa, or licensing data. Florence will decline questions regarding registration pathways, fees, timelines, and will never evaluate your personal eligibility. For official pathways, visit our <a href="/compare" className="text-accent underline font-medium">Destination Comparison Table</a>.
         </div>
       </div>
 
-      {/* High-Yield One-Click Chips */}
+      {/* One-Click High-Yield Study Topics */}
       <div className="space-y-2">
-        <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-          One-Click High-Yield Questions:
+        <span className="text-label text-ink-60 uppercase tracking-label block">
+          One-Click Study Questions:
         </span>
         <div className="flex flex-wrap gap-2">
           {highYieldChips.map((chip, idx) => (
             <button
               key={idx}
+              type="button"
               onClick={() => handleSend(chip.query)}
               disabled={isLoading}
-              className="text-xs px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-teal-500 hover:text-teal-600 dark:hover:text-teal-400 text-slate-700 dark:text-slate-300 transition-all font-medium active:scale-95 text-left"
+              className="text-meta-sm px-3 py-1.5 rounded-full border border-line bg-surface hover:border-accent hover:text-accent text-ink-70 transition-colors font-medium text-left"
             >
               {chip.label}
             </button>
@@ -134,10 +135,10 @@ export const FlorenceAITutor: React.FC = () => {
         </div>
       </div>
 
-      {/* Main Chat Card */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm flex flex-col h-[560px]">
+      {/* Chat Card */}
+      <div className="bg-surface border border-line rounded-lg shadow-sm flex flex-col h-[560px]">
         {/* Messages Scroll Area */}
-        <div className="flex-1 p-5 overflow-y-auto space-y-4 text-xs">
+        <div className="flex-1 p-5 overflow-y-auto space-y-4 text-body-sm">
           {messages.map((m) => (
             <div
               key={m.id}
@@ -146,41 +147,28 @@ export const FlorenceAITutor: React.FC = () => {
               }`}
             >
               {m.sender === "ai" && (
-                <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-teal-600 to-emerald-500 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-sm">
+                <div className="w-7 h-7 rounded-full bg-accent-wash text-accent flex items-center justify-center font-serif font-bold text-body-sm shrink-0 border border-accent/20">
                   F
                 </div>
               )}
 
               <div
-                className={`p-4 rounded-2xl space-y-2 leading-relaxed shadow-sm ${
+                className={`p-4 rounded-lg leading-relaxed whitespace-pre-wrap ${
                   m.sender === "user"
-                    ? "bg-emerald-600 text-white rounded-tr-none font-medium"
-                    : "bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-tl-none"
+                    ? "bg-accent text-white rounded-br-none"
+                    : "bg-paper-alt border border-line text-ink rounded-bl-none"
                 }`}
               >
-                {/* Message Header */}
-                <div className="flex items-center justify-between text-[12px] opacity-80 gap-4">
-                  <span className="font-bold">
-                    {m.sender === "user" ? "You" : "Florence AI Tutor"}
-                  </span>
-                  <span>{m.timestamp}</span>
-                </div>
-
-                {/* Content */}
-                <div className="whitespace-pre-line leading-relaxed font-sans text-xs">
-                  {m.text}
-                </div>
-
-                {/* Source attribution tag */}
+                {m.text}
                 {m.source && (
-                  <div className="pt-2 border-t border-slate-200 dark:border-slate-700/60 flex items-center justify-between text-[12px] text-teal-700 dark:text-teal-300">
-                    <span className="flex items-center gap-1 font-semibold">
-                      <BookOpen className="w-3 h-3" />
-                      {m.source}
-                    </span>
-                    <span className="font-mono bg-teal-100 dark:bg-teal-900/60 px-1.5 py-0.5 rounded text-[12px]">
-                      Query Cost: {m.cost}
-                    </span>
+                  <div
+                    className={`mt-2.5 pt-2 text-meta-sm font-mono border-t ${
+                      m.sender === "user"
+                        ? "border-white/20 text-white/70"
+                        : "border-line text-ink-40"
+                    }`}
+                  >
+                    Source: {m.source}
                   </div>
                 )}
               </div>
@@ -188,13 +176,9 @@ export const FlorenceAITutor: React.FC = () => {
           ))}
 
           {isLoading && (
-            <div className="flex gap-3 max-w-xl">
-              <div className="w-8 h-8 rounded-xl bg-teal-600 text-white flex items-center justify-center font-bold text-xs shrink-0 animate-pulse">
-                F
-              </div>
-              <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-2xl rounded-tl-none text-xs text-slate-500 animate-pulse flex items-center gap-2">
-                <span>Retrieving clinical guidelines and rationales...</span>
-              </div>
+            <div className="flex items-center gap-2 text-ink-60 text-meta-sm italic p-2">
+              <span className="w-2 h-2 rounded-full bg-accent animate-ping" />
+              <span>Florence is generating study rationale...</span>
             </div>
           )}
 
@@ -202,33 +186,27 @@ export const FlorenceAITutor: React.FC = () => {
         </div>
 
         {/* Input Bar */}
-        <div className="p-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/40 rounded-b-2xl">
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleSend();
-            }}
-            className="flex gap-2"
+        <div className="p-3.5 border-t border-line bg-paper flex items-center gap-2">
+          <input
+            type="text"
+            value={inputQuery}
+            onChange={(e) => setInputQuery(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleSend()}
+            placeholder="Ask a study question (e.g. Paracetamol vs Acetaminophen, IV drip rate)..."
+            disabled={isLoading}
+            className="flex-1 px-3.5 py-2.5 rounded border border-line bg-surface text-ink text-body-sm focus:outline-accent min-h-control"
+          />
+          <button
+            type="button"
+            onClick={() => handleSend()}
+            disabled={isLoading || !inputQuery.trim()}
+            className="px-4 py-2.5 rounded bg-accent text-white hover:bg-accent-dark disabled:opacity-40 disabled:cursor-not-allowed font-semibold text-body-sm transition-colors min-h-control flex items-center justify-center gap-1.5 shrink-0"
           >
-            <input
-              type="text"
-              value={inputQuery}
-              onChange={(e) => setInputQuery(e.target.value)}
-              placeholder="Ask about Australian AHPRA vs US NCLEX, drug mechanisms, or dimensional analysis..."
-              disabled={isLoading}
-              className="flex-1 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl px-4 py-3 text-xs focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 text-slate-900 dark:text-white"
-            />
-            <button
-              type="submit"
-              disabled={isLoading || !inputQuery.trim()}
-              className="px-5 py-3 bg-teal-600 hover:bg-teal-700 disabled:opacity-50 text-white rounded-xl text-xs font-bold shrink-0 transition-all flex items-center gap-2 shadow-sm"
-            >
-              <span>Send</span>
-              <Send className="w-3.5 h-3.5" />
-            </button>
-          </form>
+            <span>Ask</span>
+            <Send className="w-4 h-4" />
+          </button>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
