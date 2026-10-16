@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { UtilityBar } from "@/components/UtilityBar";
 import { Navbar } from "@/components/Navbar";
 import { HomePage } from "@/components/HomePage";
@@ -36,12 +37,38 @@ import { StoriesPage } from "@/components/StoriesPage";
 import { FlorenceAITutor } from "@/components/FlorenceAITutor";
 import { Calculator, FileText, Pill, BookOpen, Bot, ArrowRight } from "lucide-react";
 
-export default function App() {
-  const [currentPath, setCurrentPath] = useState<string>("/");
+interface ClientAppProps {
+  initialPath?: string;
+}
+
+export function ClientApp({ initialPath = "/" }: ClientAppProps) {
+  const pathname = usePathname();
+  const [currentPath, setCurrentPath] = useState<string>(initialPath);
+
+  // Sync with browser URL changes (e.g. initial load or router navigation)
+  useEffect(() => {
+    if (pathname && pathname !== currentPath) {
+      setCurrentPath(pathname);
+    }
+  }, [pathname]);
+
+  // Handle browser back/forward buttons
+  useEffect(() => {
+    const handlePopState = () => {
+      setCurrentPath(window.location.pathname || "/");
+    };
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
 
   const handleNavigate = (path: string) => {
+    if (typeof window !== "undefined") {
+      window.history.pushState({}, "", path);
+    }
     setCurrentPath(path);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
 
   const renderContent = () => {
