@@ -69,8 +69,8 @@
      Fallbacks matter: a large share of this audience is on slow mobile
      connections and must be able to read before webfonts arrive.
      ----------------------------------------------------------------------- */
-  --font-serif: Newsreader, Georgia, "Times New Roman", serif;
-  --font-sans: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "Newsreader Variable", Newsreader, Georgia, "Times New Roman", serif;
+  --font-sans: "Public Sans Variable", "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
 
   /* -----------------------------------------------------------------------
      Typography — scale

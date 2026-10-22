@@ -1,21 +1,24 @@
 import type { Metadata } from "next";
-import { Newsreader, Public_Sans } from "next/font/google";
+
+/**
+ * Fonts are self-hosted via Fontsource, deliberately NOT `next/font/google`.
+ *
+ * `next/font/google` fetches the font CSS from fonts.googleapis.com at BUILD
+ * time. That makes every build depend on a live network call: it fails outright
+ * offline, behind a proxy, or in CI, and on Next 14 it also throws
+ * "Cannot read properties of null" when Google's CSS payload changes shape.
+ *
+ * Self-hosting removes the build-time network call entirely and ships the
+ * woff2 from our own origin, which also matters for the slow-connection
+ * audience this site is built for. See docs/design-system.md.
+ *
+ * Family names registered by these packages — "Newsreader Variable" and
+ * "Public Sans Variable" — are the first entries in the --font-serif and
+ * --font-sans stacks in src/styles/tokens.css.
+ */
+import "@fontsource-variable/newsreader";
+import "@fontsource-variable/public-sans";
 import "./globals.css";
-
-const newsreader = Newsreader({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-serif",
-  display: "swap",
-  adjustFontFallback: false,
-});
-
-const publicSans = Public_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-sans",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "StudyNursing.net — Independent Information for Internationally Qualified Nurses",
@@ -29,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${newsreader.variable} ${publicSans.variable}`}>
+    <html lang="en">
       <body className="font-sans bg-paper text-ink antialiased">
         <a href="#main" className="skip-link">Skip to main content</a>
         {children}

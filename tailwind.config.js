@@ -1,5 +1,3 @@
-import type { Config } from "tailwindcss";
-
 /**
  * StudyNursing.net — Tailwind theme.
  *
@@ -9,12 +7,16 @@ import type { Config } from "tailwindcss";
  * Do not add literal hex values, px sizes or font names here. If you need a new
  * value, add the token first.
  *
+ * CommonJS (.js) rather than .ts so Tailwind loads it natively without jiti.
+ *
  * See docs/design-system.md for rationale.
+ *
+ * @type {import('tailwindcss').Config}
  */
-const config: Config = {
+module.exports = {
   content: [
-    "./src/app/**/*.{ts,tsx,mdx}",
-    "./src/components/**/*.{ts,tsx}",
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/content/**/*.{md,mdx}",
   ],
   theme: {
@@ -57,6 +59,7 @@ const config: Config = {
           text: "var(--color-caution-text)",
           body: "var(--color-caution-body)",
           wash: "var(--color-caution-wash)",
+          border: "var(--color-caution)",
         },
       },
 
@@ -99,11 +102,11 @@ const config: Config = {
         16: "var(--space-16)",
         18: "var(--space-18)",
         24: "var(--space-24)",
-        "card": "var(--card-pad)",
-        "gutter": "var(--grid-gutter)",
-        "section": "var(--section-pad)",
+        card: "var(--card-pad)",
+        gutter: "var(--grid-gutter)",
+        section: "var(--section-pad)",
         "section-sm": "var(--section-pad-sm)",
-        "container": "var(--container-pad)",
+        container: "var(--container-pad)",
         "container-sm": "var(--container-pad-sm)",
       },
 
@@ -122,8 +125,8 @@ const config: Config = {
       },
 
       minHeight: {
-        control: "var(--control-min)",      // 44px accessibility floor
-        button: "var(--control-height)",    // 52px primary control
+        control: "var(--control-min)",   // 44px accessibility floor
+        button: "var(--control-height)", // 52px primary control
       },
 
       minWidth: {
@@ -142,5 +145,3 @@ const config: Config = {
   },
   plugins: [],
 };
-
-export default config;
