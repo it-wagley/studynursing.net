@@ -3,6 +3,7 @@ import { PageFurniture, PageFurnitureData } from "./PageFurniture";
 import { DepthLabel } from "./DepthLabel";
 import { CautionPanel } from "./CautionPanel";
 import { ArrowLeft, AlertTriangle, Scale, CheckCircle2, ShieldAlert } from "lucide-react";
+import { UNREVIEWED } from "@/data/reviewers";
 
 interface GulfContractsPageProps {
   onNavigate?: (path: string) => void;
@@ -11,11 +12,7 @@ interface GulfContractsPageProps {
 const furnitureData: PageFurnitureData = {
   tier: "standard",
   reviewedAt: "2026-10-10",
-  reviewer: {
-    name: "Sarah Jenkins",
-    country: "Australia",
-    credential: "RN, MN",
-  },
+  reviewer: UNREVIEWED,
   sources: [
     {
       label: "Kingdom of Saudi Arabia — Royal Decree No. M/51 (Saudi Labor Law)",

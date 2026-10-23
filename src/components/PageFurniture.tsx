@@ -1,6 +1,6 @@
 import React from "react";
 import { DepthLabel, DepthTier } from "./DepthLabel";
-import { ExternalLink, CheckCircle, Clock } from "lucide-react";
+import { ExternalLink, CheckCircle, Clock, AlertCircle } from "lucide-react";
 
 export interface SourceCitation {
   label: string;
@@ -17,7 +17,15 @@ export interface ReviewerCredit {
 export interface PageFurnitureData {
   tier: DepthTier;
   reviewedAt: string;
-  reviewer: ReviewerCredit;
+  /**
+   * The registered nurse who clinically reviewed this page, or `null` when
+   * no one has yet. `null` is a valid, honest state and renders as a visible
+   * "Not yet clinically reviewed" marker — never leave it out, and never
+   * invent a name to satisfy the validator.
+   *
+   * Names live in src/data/reviewers.ts so each reviewer is declared once.
+   */
+  reviewer: ReviewerCredit | null;
   sources: SourceCitation[];
 }
 
@@ -43,9 +51,19 @@ export function validatePageFurniture(data: PageFurnitureData): void {
   if (!data.reviewedAt || typeof data.reviewedAt !== "string") {
     throw new Error("PageFurniture: Missing required 'reviewedAt' date string.");
   }
-  if (!data.reviewer || !data.reviewer.name || !data.reviewer.country) {
+  // `reviewer` must be stated, but `null` is a legitimate answer. A page with
+  // no clinical reviewer may still be fully sourced; what it may NOT do is
+  // claim the "Fully reviewed" tier, which asserts review by a named nurse.
+  if (data.reviewer !== null) {
+    if (!data.reviewer.name || !data.reviewer.country) {
+      throw new Error(
+        "PageFurniture: 'reviewer' must be null or an object including 'name' and 'country'."
+      );
+    }
+  } else if (data.tier === "full") {
     throw new Error(
-      "PageFurniture: Missing required 'reviewer' object (must include 'name' and 'country')."
+      "PageFurniture: tier 'full' asserts review by a named registered nurse, " +
+        "but 'reviewer' is null. Use tier 'standard' until a real reviewer is attached."
     );
   }
   if (!Array.isArray(data.sources) || data.sources.length === 0) {
@@ -68,16 +86,26 @@ export const PageFurniture: React.FC<PageFurnitureProps> = ({ data, className = 
       <div className="flex flex-wrap items-center gap-3">
         <DepthLabel tier={data.tier} />
         
-        <div className="flex items-center gap-1.5 font-medium text-ink-80">
-          <CheckCircle className="w-4 h-4 text-accent shrink-0" aria-hidden="true" />
-          <span>
-            Reviewed by{" "}
-            <span className="font-semibold text-ink">
-              {data.reviewer.name}
+        {data.reviewer ? (
+          <div className="flex items-center gap-1.5 font-medium text-ink-80">
+            <CheckCircle className="w-4 h-4 text-accent shrink-0" aria-hidden="true" />
+            <span>
+              Reviewed by{" "}
+              <span className="font-semibold text-ink">
+                {data.reviewer.name}
+              </span>
+              {data.reviewer.credential ? `, ${data.reviewer.credential}` : ""} ({data.reviewer.country})
             </span>
-            {data.reviewer.credential ? `, ${data.reviewer.credential}` : ""} ({data.reviewer.country})
-          </span>
-        </div>
+          </div>
+        ) : (
+          <div
+            className="flex items-center gap-1.5 font-medium text-caution-text"
+            title="No registered nurse has clinically reviewed this page. Verify against the primary sources listed below."
+          >
+            <AlertCircle className="w-4 h-4 shrink-0" aria-hidden="true" />
+            <span>Not yet clinically reviewed</span>
+          </div>
+        )}
       </div>
 
       {/* Date stamp and Source jump link */}

@@ -138,7 +138,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             <div className="space-y-2.5">
               <div className="flex items-center justify-between">
                 <span className="font-serif text-heading-md text-ink font-semibold">Australia</span>
-                <DepthLabel tier="full" />
+                <DepthLabel tier="standard" />
               </div>
               <p className="text-body-xs text-ink-60 leading-body">
                 Governed by the Nursing and Midwifery Board of Australia (NMBA) and AHPRA. Most overseas-trained nurses complete the Outcomes-Based Assessment (OBA), consisting of NCLEX-RN and a clinical OSCE.

@@ -2,19 +2,16 @@ import React from "react";
 import { PageFurniture, PageFurnitureData } from "./PageFurniture";
 import { DepthLabel } from "./DepthLabel";
 import { CautionPanel } from "./CautionPanel";
+import { UNREVIEWED } from "@/data/reviewers";
 
 interface OsceExamGuideProps {
   onNavigate?: (path: string) => void;
 }
 
 const furnitureData: PageFurnitureData = {
-  tier: "full",
+  tier: "standard",
   reviewedAt: "2026-10-10",
-  reviewer: {
-    name: "Sarah Jenkins",
-    country: "Australia",
-    credential: "RN, MN",
-  },
+  reviewer: UNREVIEWED,
   sources: [
     {
       label: "NMBA — RN OSCE Guidelines for Candidates",
@@ -50,7 +47,7 @@ export const OsceExamGuide: React.FC<OsceExamGuideProps> = ({ onNavigate }) => {
           <span>/</span>
           <span className="text-ink">OSCE Practical Guide</span>
           <span className="text-line-strong">·</span>
-          <DepthLabel tier="full" />
+          <DepthLabel tier="standard" />
         </div>
         <h1 className="font-serif text-display-md sm:text-display-lg text-ink font-normal tracking-tight">
           Objective Structured Clinical Examination (OSCE)

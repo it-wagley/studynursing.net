@@ -3,19 +3,16 @@ import { PageFurniture, PageFurnitureData } from "./PageFurniture";
 import { DepthLabel } from "./DepthLabel";
 import { CautionPanel } from "./CautionPanel";
 import { ArrowRight } from "lucide-react";
+import { UNREVIEWED } from "@/data/reviewers";
 
 interface NclexExamGuideProps {
   onNavigate?: (path: string) => void;
 }
 
 const furnitureData: PageFurnitureData = {
-  tier: "full",
+  tier: "standard",
   reviewedAt: "2026-10-10",
-  reviewer: {
-    name: "Sarah Jenkins",
-    country: "Australia",
-    credential: "RN, MN",
-  },
+  reviewer: UNREVIEWED,
   sources: [
     {
       label: "NCSBN — NCLEX Test Plans & Pass Standard",
@@ -51,7 +48,7 @@ export const NclexExamGuide: React.FC<NclexExamGuideProps> = ({ onNavigate }) =>
           <span>/</span>
           <span className="text-ink">NCLEX-RN Guide</span>
           <span className="text-line-strong">·</span>
-          <DepthLabel tier="full" />
+          <DepthLabel tier="standard" />
         </div>
         <h1 className="font-serif text-display-md sm:text-display-lg text-ink font-normal tracking-tight">
           NextGen NCLEX-RN Examination

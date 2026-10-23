@@ -234,7 +234,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             © {new Date().getFullYear()} StudyNursing.net. Governed by binding editorial boundaries.
           </div>
           <div className="tabular">
-            Reviewed quarterly by registered nurses · Last site audit: October 2026
+            Every page states its own review status and the date each source was checked
           </div>
         </div>
 

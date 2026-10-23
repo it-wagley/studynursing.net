@@ -2,6 +2,7 @@ import React from "react";
 import { PageFurniture, PageFurnitureData } from "./PageFurniture";
 import { DepthLabel } from "./DepthLabel";
 import { CautionPanel } from "./CautionPanel";
+import { UNREVIEWED } from "@/data/reviewers";
 
 interface NewZealandRegisterPageProps {
   onNavigate?: (path: string) => void;
@@ -10,11 +11,7 @@ interface NewZealandRegisterPageProps {
 const furnitureData: PageFurnitureData = {
   tier: "standard",
   reviewedAt: "2026-10-10",
-  reviewer: {
-    name: "Sarah Jenkins",
-    country: "Australia",
-    credential: "RN, MN",
-  },
+  reviewer: UNREVIEWED,
   sources: [
     {
       label: "Nursing Council of New Zealand — Internationally Qualified Nurses Overview",

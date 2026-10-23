@@ -15,6 +15,7 @@ import { ExamsIndex } from "@/components/ExamsIndex";
 import { NclexExamGuide } from "@/components/NclexExamGuide";
 import { OsceExamGuide } from "@/components/OsceExamGuide";
 import { EnglishExamGuide } from "@/components/EnglishExamGuide";
+import { RegisterIndexPage } from "./RegisterIndexPage";
 import { AustraliaRegisterPage } from "@/components/AustraliaRegisterPage";
 import { AustraliaPathwaysPage } from "@/components/AustraliaPathwaysPage";
 import { UkRegisterPage } from "@/components/UkRegisterPage";
@@ -97,7 +98,10 @@ export function ClientApp({ initialPath = "/" }: ClientAppProps) {
     }
 
     // 4. Registration Destination Guides (Step 6 & 8)
-    if (currentPath === "/register" || currentPath === "/register/australia") {
+    if (currentPath === "/register") {
+      return <RegisterIndexPage onNavigate={handleNavigate} />;
+    }
+    if (currentPath === "/register/australia") {
       return <AustraliaRegisterPage onNavigate={handleNavigate} />;
     }
     if (currentPath === "/register/australia/pathways") {

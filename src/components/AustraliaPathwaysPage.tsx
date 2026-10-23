@@ -3,19 +3,16 @@ import { PageFurniture, PageFurnitureData } from "./PageFurniture";
 import { DepthLabel } from "./DepthLabel";
 import { CautionPanel } from "./CautionPanel";
 import { ExternalLink } from "lucide-react";
+import { UNREVIEWED } from "@/data/reviewers";
 
 interface AustraliaPathwaysPageProps {
   onNavigate?: (path: string) => void;
 }
 
 const furnitureData: PageFurnitureData = {
-  tier: "full",
+  tier: "standard",
   reviewedAt: "2026-10-10",
-  reviewer: {
-    name: "Sarah Jenkins",
-    country: "Australia",
-    credential: "RN, MN",
-  },
+  reviewer: UNREVIEWED,
   sources: [
     {
       label: "NMBA — Assessment Criteria for Internationally Qualified Nurses",
@@ -260,7 +257,7 @@ export const AustraliaPathwaysPage: React.FC<AustraliaPathwaysPageProps> = ({ on
           <span>/</span>
           <span className="text-ink font-medium">Published Pathway Criteria</span>
           <span className="text-line-strong">·</span>
-          <DepthLabel tier="full" />
+          <DepthLabel tier="standard" />
         </div>
         <h1 className="font-serif text-display-md sm:text-display-lg text-ink font-normal tracking-tight">
           Australia Qualification Criteria Selector

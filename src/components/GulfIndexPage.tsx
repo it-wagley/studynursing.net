@@ -3,6 +3,7 @@ import { PageFurniture, PageFurnitureData } from "./PageFurniture";
 import { DepthLabel } from "./DepthLabel";
 import { CautionPanel } from "./CautionPanel";
 import { ArrowRight, Briefcase, FileText, DollarSign, Users, Compass } from "lucide-react";
+import { UNREVIEWED } from "@/data/reviewers";
 
 interface GulfHubProps {
   onNavigate?: (path: string) => void;
@@ -11,11 +12,7 @@ interface GulfHubProps {
 const furnitureData: PageFurnitureData = {
   tier: "standard",
   reviewedAt: "2026-10-10",
-  reviewer: {
-    name: "Sarah Jenkins",
-    country: "Australia",
-    credential: "RN, MN",
-  },
+  reviewer: UNREVIEWED,
   sources: [
     {
       label: "Kingdom of Saudi Arabia Ministry of Human Resources — Labor Law Overview",

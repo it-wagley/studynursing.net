@@ -3,6 +3,7 @@ import { PageFurniture, PageFurnitureData } from "./PageFurniture";
 import { DepthLabel } from "./DepthLabel";
 import { CautionPanel } from "./CautionPanel";
 import { ArrowLeft, Clock, ShieldCheck, FileSpreadsheet, Building2 } from "lucide-react";
+import { UNREVIEWED } from "@/data/reviewers";
 
 interface GulfTheWorkPageProps {
   onNavigate?: (path: string) => void;
@@ -11,11 +12,7 @@ interface GulfTheWorkPageProps {
 const furnitureData: PageFurnitureData = {
   tier: "standard",
   reviewedAt: "2026-10-10",
-  reviewer: {
-    name: "Sarah Jenkins",
-    country: "Australia",
-    credential: "RN, MN",
-  },
+  reviewer: UNREVIEWED,
   sources: [
     {
       label: "Saudi Central Board for Accreditation of Healthcare Institutions (CBAHI) — National Hospital Standards",

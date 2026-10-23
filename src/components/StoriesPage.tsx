@@ -19,72 +19,20 @@ export interface ContributorStory {
   keyLearnings: string[];
 }
 
-const STORIES_DATA: ContributorStory[] = [
-  {
-    id: "story-1",
-    name: "Arun K.",
-    completedYear: 2024,
-    route: "AHPRA OBA (Stream B)",
-    trainedIn: "Kerala, India",
-    nowIn: "Melbourne, Victoria, Australia",
-    currentRole: "Emergency Department Registered Nurse",
-    verifiedOnRegister: true,
-    summary: "Completed four years of acute medical-surgical nursing in Ernakulam before pursuing Australian registration. Sat the NCLEX-RN at Pearson VUE Bangalore and completed the RN OSCE at Adelaide Health Simulation on first attempt.",
-    keyLearnings: [
-      "Focused heavily on dimensional analysis for pediatric and IV dosage calculations during NCLEX prep.",
-      "The Adelaide OSCE places massive weight on patient dignity, active consent, and structured ISBAR communication.",
-      "Ensured Indian Nursing Council license was active and continuous before initiating AHPRA portfolio upload.",
-    ],
-  },
-  {
-    id: "story-2",
-    name: "Maria Theresa L.",
-    completedYear: 2023,
-    route: "NMC Test of Competence (ToC 2021)",
-    trainedIn: "Manila, Philippines",
-    nowIn: "Birmingham, United Kingdom",
-    currentRole: "Cardiothoracic High Dependency Unit RN",
-    verifiedOnRegister: true,
-    summary: "Worked three years in a tertiary coronary care unit in Quezon City. Completed the NMC CBT from Manila before traveling to the University of Northampton test centre for the 10-station clinical OSCE.",
-    keyLearnings: [
-      "NMC CBT Part A (numeracy) requires 100% accuracy on drug math—practicing ungated question banks was critical.",
-      "In the UK OSCE APIE stations, strict handwriting legibility on the nursing care plan was heavily emphasized.",
-      "OET scores were clubbed across two sittings within a four-month window.",
-    ],
-  },
-  {
-    id: "story-3",
-    name: "Grace N.",
-    completedYear: 2024,
-    route: "Nursing Council of New Zealand (CAP)",
-    trainedIn: "Nairobi, Kenya",
-    nowIn: "Christchurch, New Zealand",
-    currentRole: "Older Persons Health & Rehabilitation RN",
-    verifiedOnRegister: true,
-    summary: "Trained in Nairobi and completed five years of general hospital clinical service. Navigated CGFNS CVS-NCNZ verification and completed an 8-week Competence Assessment Programme (CAP) at an accredited South Island polytechnic.",
-    keyLearnings: [
-      "CGFNS document authentication took six months; requested alma mater transcripts early.",
-      "The New Zealand CAP placement evaluated bi-cultural healthcare models and the Treaty of Waitangi principles in clinical practice.",
-      "Secured detailed hospital statements of service documenting 3,000+ hours prior to departing Kenya.",
-    ],
-  },
-  {
-    id: "story-4",
-    name: "Benjamin C.",
-    completedYear: 2025,
-    route: "Gulf Stepping-Stone to Australia",
-    trainedIn: "Cebu, Philippines",
-    nowIn: "Riyadh, Saudi Arabia → Preparing Australia OBA",
-    currentRole: "Surgical Intensive Care Unit Staff Nurse",
-    verifiedOnRegister: true,
-    summary: "Moved to a tertiary specialist hospital in Riyadh to fund international registration costs. Actively maintains Philippine PRC registration while archiving certified statements of service for an NMBA application.",
-    keyLearnings: [
-      "Treated the two-year Gulf stint as a structured study period, passing the NCLEX-RN at the Pearson VUE Riyadh centre.",
-      "Retained written supervisory reference letters on hospital letterhead with verified nurse manager emails.",
-      "Kept Philippine PRC license current through online portal renewals to prevent regulatory credential blocks.",
-    ],
-  },
-];
+/**
+ * Published contributor accounts.
+ *
+ * EMPTY BY DESIGN. This page previously shipped four invented nurses, each
+ * flagged `verifiedOnRegister: true` under the heading "Verified Contributor
+ * Experiences". A fabricated testimonial asserting register verification is a
+ * consumer-protection problem, not a placeholder.
+ *
+ * Add an entry ONLY for a real nurse who has given consent to publish, and set
+ * `verifiedOnRegister` true only once their registration has actually been
+ * checked on the regulator's public register. The earlier sample entries are
+ * in git history if the shape is useful.
+ */
+const STORIES_DATA: ContributorStory[] = [];
 
 export const StoriesPage: React.FC<StoriesPageProps> = ({ onNavigate }) => {
   const [selectedRoute, setSelectedRoute] = useState<string>("all");
@@ -103,38 +51,68 @@ export const StoriesPage: React.FC<StoriesPageProps> = ({ onNavigate }) => {
           <span className="text-ink font-medium">Contributor Stories</span>
         </div>
         <h1 className="font-serif text-display-md sm:text-display-lg text-ink font-normal tracking-tight">
-          Verified Contributor Experiences
+          Contributor Experiences
         </h1>
         <p className="text-body-lg text-ink-70 leading-relaxed">
-          First-person accounts from internationally qualified nurses who have completed registration across Australia, the UK, New Zealand, and the Gulf.
+          First-person accounts from internationally qualified nurses who have completed registration. We publish an account only with the nurse&rsquo;s consent, and mark it as verified only once we have checked their registration on the regulator&rsquo;s own public register.
         </p>
       </div>
 
       {/* Mandatory Requirements Change Notice */}
-      <CautionPanel title="Requirements change notice">
-        <p>
-          Regulatory criteria, examination formats, and statutory fees evolve continuously. Each story below displays the calendar year the contributor completed registration. Their experience reflects the rules in effect at that time; always check current standards on our official destination guides.
-        </p>
-      </CautionPanel>
+      {STORIES_DATA.length > 0 && (
+        <CautionPanel title="Requirements change notice">
+          <p>
+            Regulatory criteria, examination formats, and statutory fees evolve continuously. Each story below displays the calendar year the contributor completed registration. Their experience reflects the rules in effect at that time; always check current standards on our official destination guides.
+          </p>
+        </CautionPanel>
+      )}
 
       {/* Filter Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-paper-alt border border-line rounded-lg p-3.5">
-        <div className="flex items-center gap-2 text-meta-sm text-ink font-semibold">
-          <Filter className="w-4 h-4 text-accent" />
-          <span>Filter by Pathway:</span>
+      {STORIES_DATA.length > 0 && (
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-paper-alt border border-line rounded-lg p-3.5">
+          <div className="flex items-center gap-2 text-meta-sm text-ink font-semibold">
+            <Filter className="w-4 h-4 text-accent" />
+            <span>Filter by Pathway:</span>
+          </div>
+          <select
+            value={selectedRoute}
+            onChange={(e) => setSelectedRoute(e.target.value)}
+            className="px-3 py-1.5 rounded border border-line bg-paper text-ink text-meta-sm focus:outline-accent min-h-control"
+          >
+            <option value="all">All Pathways ({STORIES_DATA.length})</option>
+            <option value="AHPRA OBA (Stream B)">Australia OBA (Stream B)</option>
+            <option value="NMC Test of Competence (ToC 2021)">UK NMC Test of Competence</option>
+            <option value="Nursing Council of New Zealand (CAP)">New Zealand CAP</option>
+            <option value="Gulf Stepping-Stone to Australia">Gulf Stepping-Stone</option>
+          </select>
         </div>
-        <select
-          value={selectedRoute}
-          onChange={(e) => setSelectedRoute(e.target.value)}
-          className="px-3 py-1.5 rounded border border-line bg-paper text-ink text-meta-sm focus:outline-accent min-h-control"
-        >
-          <option value="all">All Pathways ({STORIES_DATA.length})</option>
-          <option value="AHPRA OBA (Stream B)">Australia OBA (Stream B)</option>
-          <option value="NMC Test of Competence (ToC 2021)">UK NMC Test of Competence</option>
-          <option value="Nursing Council of New Zealand (CAP)">New Zealand CAP</option>
-          <option value="Gulf Stepping-Stone to Australia">Gulf Stepping-Stone</option>
-        </select>
-      </div>
+      )}
+
+      {/* Empty state — no published accounts yet */}
+      {STORIES_DATA.length === 0 && (
+        <div className="bg-paper-alt border border-line rounded-lg p-7 sm:p-8 space-y-4 text-center">
+          <h2 className="font-serif text-heading-md text-ink font-semibold">
+            No contributor accounts published yet
+          </h2>
+          <p className="text-body-sm text-ink-70 max-w-measure mx-auto leading-relaxed">
+            We would rather show nothing here than invent it. An account appears on this
+            page only when a real nurse has agreed to share their route and we have checked
+            their registration on the regulator&rsquo;s own public register.
+          </p>
+          <p className="text-body-sm text-ink-70 max-w-measure mx-auto leading-relaxed">
+            If you registered abroad and would be willing to describe how you did it, we
+            would like to hear from you. Nothing is published without your approval of the
+            final wording, and you decide how much of your name appears.
+          </p>
+          <button
+            type="button"
+            onClick={() => onNavigate && onNavigate("/about")}
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-md bg-ink text-paper hover:bg-ink-80 text-body-sm font-semibold transition-colors min-h-control"
+          >
+            How we work with contributors
+          </button>
+        </div>
+      )}
 
       {/* Stories List */}
       <div className="space-y-8">

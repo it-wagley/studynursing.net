@@ -3,21 +3,30 @@
 import React, { useState, useRef, useEffect } from "react";
 import { DepthLabel, DepthTier } from "./DepthLabel";
 import { ChevronDown, Menu, X } from "lucide-react";
+import { DESTINATION_DATA } from "@/data/destinations";
 
 export interface NavigationProps {
   currentPath?: string;
   onNavigate?: (path: string) => void;
 }
 
-const DESTINATIONS: Array<{ name: string; path: string; tier: DepthTier; summary: string }> = [
-  { name: "Australia", path: "/register/australia", tier: "full", summary: "AHPRA & NMBA outcomes-based assessment (OBA)" },
-  { name: "United Kingdom", path: "/register/united-kingdom", tier: "standard", summary: "NMC Test of Competence & overseas registration" },
-  { name: "New Zealand", path: "/register/new-zealand", tier: "standard", summary: "NCNZ requirements and scrutiny caveats" },
-  { name: "Singapore", path: "/register/singapore", tier: "standard", summary: "Singapore Nursing Board (SNB) registration" },
-  { name: "Canada", path: "/register/canada", tier: "overview", summary: "NNAS credentialing and provincial colleges" },
-  { name: "Ireland", path: "/register/ireland", tier: "overview", summary: "NMBI recognition and aptitude test" },
-  { name: "United States", path: "/register/united-states", tier: "overview", summary: "State boards of nursing & CGFNS requirements" },
+/**
+ * Nav copy lives here; the depth tier does NOT. It is read from
+ * src/data/destinations.ts so the badge in the menu can never disagree with
+ * the badge on the page it links to.
+ */
+const DESTINATIONS: Array<{ name: string; path: string; summary: string }> = [
+  { name: "Australia", path: "/register/australia", summary: "AHPRA & NMBA outcomes-based assessment (OBA)" },
+  { name: "United Kingdom", path: "/register/united-kingdom", summary: "NMC Test of Competence & overseas registration" },
+  { name: "New Zealand", path: "/register/new-zealand", summary: "NCNZ requirements and scrutiny caveats" },
+  { name: "Singapore", path: "/register/singapore", summary: "Singapore Nursing Board (SNB) registration" },
+  { name: "Canada", path: "/register/canada", summary: "NNAS credentialing and provincial colleges" },
+  { name: "Ireland", path: "/register/ireland", summary: "NMBI recognition and aptitude test" },
+  { name: "United States", path: "/register/united-states", summary: "State boards of nursing & CGFNS requirements" },
 ];
+
+const tierFor = (path: string): DepthTier =>
+  DESTINATION_DATA.find((d) => d.path === path)?.tier ?? "overview";
 
 const EXAMS: Array<{ name: string; path: string; summary: string }> = [
   { name: "NCLEX-RN", path: "/exams/nclex-rn", summary: "NextGen computer-adaptive test used in the US, Australia and Canada" },
@@ -248,7 +257,7 @@ export const Navbar: React.FC<NavigationProps> = ({ currentPath = "/", onNavigat
                       <div className="font-semibold text-ink text-body-sm">{dest.name}</div>
                       <div className="text-meta-sm text-ink-60 leading-snug">{dest.summary}</div>
                     </div>
-                    <DepthLabel tier={dest.tier} className="mt-0.5 shrink-0" />
+                    <DepthLabel tier={tierFor(dest.path)} className="mt-0.5 shrink-0" />
                   </a>
                 ))}
               </div>
@@ -337,7 +346,7 @@ export const Navbar: React.FC<NavigationProps> = ({ currentPath = "/", onNavigat
                   className="flex items-center justify-between px-3 py-2 text-body-sm text-ink-70 hover:text-ink hover:bg-paper-alt rounded-md"
                 >
                   <span>{dest.name}</span>
-                  <DepthLabel tier={dest.tier} />
+                  <DepthLabel tier={tierFor(dest.path)} />
                 </a>
               ))}
             </div>

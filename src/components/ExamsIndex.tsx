@@ -2,19 +2,16 @@ import React from "react";
 import { PageFurniture, PageFurnitureData } from "./PageFurniture";
 import { DepthLabel } from "./DepthLabel";
 import { ArrowRight, CheckCircle2, FileText, Globe, Stethoscope } from "lucide-react";
+import { UNREVIEWED } from "@/data/reviewers";
 
 interface ExamsIndexProps {
   onNavigate?: (path: string) => void;
 }
 
 const furnitureData: PageFurnitureData = {
-  tier: "full",
+  tier: "standard",
   reviewedAt: "2026-10-10",
-  reviewer: {
-    name: "Sarah Jenkins",
-    country: "Australia",
-    credential: "RN, MN",
-  },
+  reviewer: UNREVIEWED,
   sources: [
     {
       label: "NCSBN — NCLEX-RN Examination Overview",
@@ -49,7 +46,7 @@ export const ExamsIndex: React.FC<ExamsIndexProps> = ({ onNavigate }) => {
         <div className="flex items-center gap-2">
           <span className="text-eyebrow text-ink-60">Destination-Neutral Spine</span>
           <span className="text-line-strong">·</span>
-          <DepthLabel tier="full" />
+          <DepthLabel tier="standard" />
         </div>
         <h1 className="font-serif text-display-md sm:text-display-lg text-ink font-normal tracking-tight">
           International Nursing Examinations
