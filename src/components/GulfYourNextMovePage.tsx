@@ -122,7 +122,7 @@ export const GulfYourNextMovePage: React.FC<GulfYourNextMovePageProps> = ({ onNa
               </div>
               <div className="bg-paper-alt p-3 rounded border border-line text-meta-sm">
                 <span className="text-ink font-semibold block">New Zealand (NCNZ)</span>
-                <span className="text-ink-60">Minimum 2,500 hours</span>
+                <span className="text-ink-60">Minimum 1,800 hours</span>
               </div>
               <div className="bg-paper-alt p-3 rounded border border-line text-meta-sm">
                 <span className="text-ink font-semibold block">Canada (NNAS)</span>

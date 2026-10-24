@@ -87,7 +87,7 @@ export const UsRegisterPage: React.FC<UsRegisterPageProps> = ({ onNavigate }) =>
         <div className="bg-surface border border-line rounded-lg p-5 space-y-1">
           <span className="text-label text-ink-40 uppercase tracking-label block">Published Fees</span>
           <div className="text-heading-sm font-serif font-semibold text-ink tabular">~$1,200 – $2,000 USD</div>
-          <p className="text-meta-sm text-ink-60">CES ~$450, State Board ~$150, NCLEX $350</p>
+          <p className="text-meta-sm text-ink-60">CES ~$450, State Board ~$150, NCLEX $200 plus $150 international scheduling fee</p>
         </div>
         <div className="bg-surface border border-line rounded-lg p-5 space-y-1">
           <span className="text-label text-ink-40 uppercase tracking-label block">Practical Clinical Exam</span>

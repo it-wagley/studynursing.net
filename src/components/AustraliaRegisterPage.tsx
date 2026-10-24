@@ -224,7 +224,7 @@ export const AustraliaRegisterPage: React.FC<AustraliaRegisterPageProps> = ({ on
               <tr>
                 <td className="p-3.5">AHPRA Assessment Fee (Orientation Part 1)</td>
                 <td className="p-3.5">AHPRA</td>
-                <td className="p-3.5 text-right tabular-nums font-semibold text-ink">$640 AUD</td>
+                <td className="p-3.5 text-right tabular-nums font-semibold text-ink">$410 AUD</td>
               </tr>
               <tr>
                 <td className="p-3.5">NCLEX-RN Registration</td>
@@ -244,7 +244,7 @@ export const AustraliaRegisterPage: React.FC<AustraliaRegisterPageProps> = ({ on
               <tr>
                 <td className="p-3.5">Initial Registration Application Fee</td>
                 <td className="p-3.5">AHPRA</td>
-                <td className="p-3.5 text-right tabular-nums">$185 AUD</td>
+                <td className="p-3.5 text-right tabular-nums">$332 AUD</td>
               </tr>
               <tr>
                 <td className="p-3.5">International Criminal History Check</td>
@@ -254,7 +254,7 @@ export const AustraliaRegisterPage: React.FC<AustraliaRegisterPageProps> = ({ on
               <tr className="bg-paper-alt font-bold text-ink">
                 <td className="p-3.5">Estimated Total Regulatory Fees (Stream B)</td>
                 <td className="p-3.5">Excludes travel & visas</td>
-                <td className="p-3.5 text-right tabular-nums text-accent-dark">~$6,000 – $6,500 AUD</td>
+                <td className="p-3.5 text-right tabular-nums text-accent-dark">~$5,750 – $6,050 AUD</td>
               </tr>
             </tbody>
           </table>

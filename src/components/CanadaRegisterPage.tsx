@@ -110,8 +110,8 @@ export const CanadaRegisterPage: React.FC<CanadaRegisterPageProps> = ({ onNaviga
         <div className="space-y-4 max-w-measure">
           <div className="bg-surface border border-line rounded-lg p-5 space-y-2">
             <div className="flex items-center justify-between">
-              <strong className="text-body text-ink font-semibold">Stage 1: NNAS Advisory Report Application</strong>
-              <span className="text-meta-sm font-mono text-ink-60 tabular">~$650 USD</span>
+              <strong className="text-body text-ink font-semibold">Stage 1: NNAS Expedited Service Application</strong>
+              <span className="text-meta-sm font-mono text-ink-60 tabular">$750 CAD</span>
             </div>
             <p className="text-body-sm text-ink-70 leading-relaxed">
               Create an online profile with the National Nursing Assessment Service. NNAS collects official university course syllabi, transcripts, registration verifications, and employment history from primary sources. NNAS prepares an Advisory Report evaluating whether curriculum content is &quot;Comparable&quot;, &quot;Somewhat Comparable&quot;, or &quot;Not Comparable&quot; to Canadian baccalaureate nursing education.
