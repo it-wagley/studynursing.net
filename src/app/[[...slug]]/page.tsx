@@ -1,6 +1,17 @@
 import React from "react";
 import { ClientApp } from "@/components/ClientApp";
 
+/**
+ * Only the routes listed in generateStaticParams() exist.
+ *
+ * Without this, Next renders ANY path through this catch-all, so
+ * /register/germany and /this-does-not-exist both returned HTTP 200 with the
+ * homepage. That is an unbounded set of duplicate pages for a site whose
+ * strategy is organic search, and a visitor who mistypes a URL is told
+ * nothing is wrong. Unknown paths now return a real 404.
+ */
+export const dynamicParams = false;
+
 interface PageProps {
   params?: {
     slug?: string[];
