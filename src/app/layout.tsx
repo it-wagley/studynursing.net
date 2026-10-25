@@ -25,6 +25,23 @@ export const metadata: Metadata = {
   title: "StudyNursing.net — Independent Information for Internationally Qualified Nurses",
   description:
     "Independent information for internationally qualified nurses comparing destinations, understanding registration criteria, and preparing for exams. Not a migration agent, recruiter, or employer.",
+
+  /**
+   * TEMPORARY — remove when the figures have been verified.
+   *
+   * The site is reachable by anyone with the link, but kept out of search
+   * results. Around 150 published figures have never been checked against the
+   * regulator that supposedly published them; of the first thirteen checked,
+   * seven were wrong (see docs/figure-audit.md). A nurse who arrives from a
+   * Google search has no reason to doubt a fee or an hours threshold, and acting
+   * on a wrong one costs her real money or a wrongly abandoned application.
+   *
+   * Delete this `robots` block to go live in search. Nothing else depends on it.
+   */
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function RootLayout({
