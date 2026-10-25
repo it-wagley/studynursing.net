@@ -338,7 +338,7 @@ export function ClientApp({ initialPath = "/" }: ClientAppProps) {
       );
     }
 
-    if (currentPath === "/tools/clinical-reference" || currentPath === "/tools/downloads") {
+    if (currentPath === "/tools/clinical-reference") {
       return (
         <div className="space-y-6">
           <div className="border-b border-line pb-4">

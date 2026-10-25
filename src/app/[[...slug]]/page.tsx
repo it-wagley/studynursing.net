@@ -47,7 +47,6 @@ export function generateStaticParams() {
     { slug: ["tools", "drug-names"] },
     { slug: ["tools", "clinical-reference"] },
     { slug: ["tools", "tutor"] },
-    { slug: ["tools", "downloads"] },
     { slug: ["about"] },
     { slug: ["sources"] },
     { slug: ["advisers"] },

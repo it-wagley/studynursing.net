@@ -40,7 +40,6 @@ const TOOLS: Array<{ name: string; path: string; summary: string }> = [
   { name: "US ↔ Commonwealth Drug Names", path: "/tools/drug-names", summary: "Generic and brand name translations (e.g. Paracetamol vs Acetaminophen)" },
   { name: "Clinical Pocket Reference", path: "/tools/clinical-reference", summary: "Emergency antidotes and mmol/L to mg/dL glucose converter" },
   { name: "Florence Study Tutor", path: "/tools/tutor", summary: "AI study companion for dosage math, pharmacology and NCLEX rationales" },
-  { name: "Formula Sheets & Checklists", path: "/tools/downloads", summary: "Printable reference sheets for clinical math and document preparation" },
 ];
 
 export const Navbar: React.FC<NavigationProps> = ({ currentPath = "/", onNavigate }) => {

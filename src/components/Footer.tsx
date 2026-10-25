@@ -150,11 +150,6 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                   Clinical Pocket Reference
                 </a>
               </li>
-              <li>
-                <a href="/tools/downloads" onClick={(e) => handleNav(e, "/tools/downloads")} className="hover:text-ink-soft transition-colors">
-                  Formula Sheets & Checklists
-                </a>
-              </li>
             </ul>
           </div>
 

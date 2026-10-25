@@ -68,17 +68,17 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
               <span>Primary sources only</span>
             </div>
             <p className="text-body-xs text-ink-60 leading-body">
-              Every factual claim links directly to the official regulatory body: AHPRA, NMBA, NMC, NCNZ, SNB, or NNAS. Never competitor blogs or restatements.
+              Factual claims are sourced to the regulator that published them: AHPRA, NMBA, NMC, NCNZ, SNB or NNAS. Never competitor blogs or restatements.
             </p>
           </div>
 
           <div className="space-y-2">
             <div className="flex items-center gap-2 font-semibold text-ink text-body-sm">
               <ShieldCheck className="w-4 h-4 text-accent shrink-0" aria-hidden="true" />
-              <span>Registered clinical review</span>
+              <span>Review status, stated plainly</span>
             </div>
             <p className="text-body-xs text-ink-60 leading-body">
-              Regulatory and clinical pages carry a named reviewer credit from a nurse holding active registration in the destination country.
+              Every regulatory page states how far it has been checked. A page is credited to a named nurse only when one registered in that country has reviewed it, and says so plainly when none has yet.
             </p>
           </div>
 
