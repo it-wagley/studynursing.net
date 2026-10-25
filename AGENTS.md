@@ -42,6 +42,54 @@ told it what it was not allowed to say, so it reached for the conventional
 pattern — and the conventional pattern in this market is a recruitment funnel.
 These documents exist to remove that default.
 
+## 2b. The second failure — invented facts, October 2026
+
+The build immediately before this one failed a different way, and it is the more
+dangerous of the two because it reads as credible rather than salesy.
+
+What shipped, all of it fictional:
+
+- A named clinical reviewer, "Sarah Jenkins, RN, MN (Australia)", credited on
+  **19 pages** — including the US, Canadian and Irish registration guides, which
+  an Australian RN would not review.
+- **Four invented nurses** on `/stories`, each flagged `verifiedOnRegister: true`
+  under the heading "Verified Contributor Experiences".
+- A sitewide footer reading "Reviewed quarterly by registered nurses · Last site
+  audit: October 2026". Neither half was true.
+- **9 of 63 cited primary sources returned 404**, and 13 more were stale. Six
+  pages — the whole Gulf cluster and Ireland — had no working source at all.
+- Of the first 12 figures checked against the regulators, **7 were wrong**,
+  including a New Zealand recency standard stated as 2,500 hours in 5 years when
+  the Council requires 1,800.
+- Every page carried `checkedAt: "2026-10-10"` against sources nobody had opened.
+
+**How the documents in this repository caused it.** Section 4.3 below used to
+require a reviewer credit on every regulatory page, and `validatePageFurniture()`
+threw if one was missing. A page could not compile without naming somebody, so a
+name was produced and pasted into 19 files. A `checkedAt` field needs a date, so
+a date appeared. A `sources` array needs URLs, so URLs appeared — one of them
+repeating two path segments inside itself, which is not a shape a copied URL
+takes. A page titled "Verified Contributor Experiences" needs contributors, so
+contributors arrived.
+
+Every one of those rules specified what the output must **look** like. None could
+test whether anything was **true**. The scaffolding written to guarantee
+integrity is precisely what manufactured the appearance of it.
+
+So, the second rule, equal in force to the one below:
+
+> **Never invent a value to satisfy a schema.**
+
+If a required field has no true value, the honest state is the value. `reviewer`
+accepts `null` and renders "Not yet clinically reviewed". A figure you cannot
+verify is omitted, not estimated. A source you have not opened is not cited. A
+validator that will not accept the honest state is a bug in the validator —
+change it, do not feed it a plausible string.
+
+A fabricated figure is worse than a missing one. A missing figure sends a nurse
+to the regulator. A wrong one sends her to the wrong conclusion with confidence,
+and on this site that can mean concluding she is ineligible when she is not.
+
 ## 3. The one rule
 
 > **Explain the rule. Never apply it to a person.**
@@ -77,8 +125,18 @@ them is a bug.
    details and destination interest only.
 3. **Every regulatory page renders four pieces of furniture**, enforced by the
    page template, not left to the author: a source link, a last-reviewed date, a
-   reviewer credit, and a depth label. See
+   reviewer **state**, and a depth label. See
    `docs/information-architecture.md` § Page furniture.
+
+   The reviewer state is a named registered nurse **or** `null`, which renders a
+   visible "Not yet clinically reviewed" marker. `null` is a legitimate, honest
+   answer and is the correct one today. A reviewer must hold current
+   registration in the jurisdiction the page covers — an Australian RN does not
+   review Canadian registration guidance. Names live in `src/data/reviewers.ts`,
+   declared once, never pasted into a page file.
+
+   A page with no reviewer may not claim the `full` ("Fully reviewed") depth
+   tier, which asserts review by a named nurse. The validator enforces this.
 4. **No registration number is displayed anywhere on the site.** Not ours, not a
    partner's.
 5. **No job listings, employer names, agency lists, or "who is hiring" content.**
@@ -107,18 +165,32 @@ is sourced, cited and dated on the page.
 
 - Next.js 14, App Router, TypeScript, Tailwind CSS, Lucide icons
 - Design tokens are defined once in `src/styles/tokens.css` and mapped in
-  `tailwind.config.ts`. **Do not write raw hex values in components.** If a value
+  `tailwind.config.js`. **Do not write raw hex values in components.** If a value
   you need is not a token, add it to the token file with a comment explaining why.
 - Server components by default. Client components only where interaction requires
   it — the practice tools and the pathway selector.
 - No analytics, tag managers or third-party scripts without an explicit decision
   recorded in this file.
+- **Fonts are self-hosted** via `@fontsource-variable/*`, imported in
+  `src/app/layout.tsx`. Do not reintroduce `next/font/google`: it fetches from
+  Google at build time, which makes every build depend on a network call and
+  fails outright offline, behind a proxy, or in CI. It is what stopped this
+  project building at all for weeks.
+- Only the routes in `generateStaticParams()` exist. `dynamicParams = false`, so
+  an unknown path returns a real 404 instead of silently rendering the homepage.
 
 ## 7. Definition of done
 
 A page is not finished until all of these are true.
 
-- [ ] Every factual claim links to a primary official source
+- [ ] Every factual claim links to a primary official source, **and that page was
+      opened and read** — not inferred, not reconstructed from memory
+- [ ] Every fee, hour count, score threshold and timeline was copied from the
+      regulator's own page in the same sitting, with the figure visible on screen
+- [ ] `checkedAt` is the date a human actually opened that source. If no one did,
+      the field is wrong — omit the citation instead
+- [ ] No reviewer name appears unless that person exists, has read the page, and
+      is registered in the jurisdiction it covers
 - [ ] Source link, last-reviewed date, reviewer credit and depth label all render
 - [ ] No string on the page implies an outcome, a promise, or our own authority
 - [ ] No input collects anything beyond contact details and destination
@@ -131,7 +203,15 @@ A page is not finished until all of these are true.
 
 ## 8. When something here is unclear
 
-Stop and ask rather than guessing. The failure mode in this project is a
-confident, fluent page that quietly promises something we cannot deliver. A
-question costs minutes; a wrong page costs the credibility the whole site is
-built on.
+Stop and ask rather than guessing. This project has two failure modes and both
+produce confident, fluent pages: one quietly promises something we cannot
+deliver, the other states something that is not true. Neither looks wrong on the
+screen. That is what makes them expensive.
+
+A question costs minutes. A wrong page costs the credibility the whole site is
+built on — and this site has no other asset.
+
+See `docs/source-audit.md` and `docs/figure-audit.md` for what was found in
+October 2026 and what remains unverified. Roughly 150 live figures have never
+been checked against a regulator. Treat every one as unverified until someone
+opens the page.

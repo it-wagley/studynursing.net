@@ -18,6 +18,7 @@ import type { Metadata } from "next";
  */
 import "@fontsource-variable/newsreader";
 import "@fontsource-variable/public-sans";
+import "../styles/tokens.css";
 import "./globals.css";
 
 export const metadata: Metadata = {
