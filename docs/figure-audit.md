@@ -38,21 +38,24 @@ were not.
 | UK OSCE **£794** | Confirmed on the NMC OSCE page |
 | UK OSCE **10 stations** | Confirmed; also confirms resits are £397 for 7 or fewer stations, which the site does not mention |
 | UK OSCE at **5 test centres** | Confirmed as five approved OSCE test providers |
+| Australia recency **450 hours in the previous 5 years** | Confirmed on the NMBA recency-of-practice fact sheet: "a minimum of 450 hours, within the past five years". Hours need not be continuous, and internationally qualified applicants meet the same standard |
 
 ## Could not be checked
 
-- **NMC fee page** (`nmc.org.uk/.../fees/`) returned a server error on three
-  attempts. The UK CBT **£83**, evaluation **£140** and registration **£153**
-  figures remain unverified. Only the OSCE fee was confirmable.
-- **NMBA Outcomes-Based Assessment page** returned a client error, so the
-  Stream A/B/C model and the **450 hours in 5 years** Australian recency standard
-  are unverified.
+- **UK CBT £83, evaluation £140 and registration £153 — still unverified after
+  five attempts.** The NMC fees page returned a server error three times, and
+  neither Test of Competence page publishes fees: both describe the structure
+  only. The OSCE £794 is the sole UK figure confirmed. These four numbers are a
+  two-minute check for a human with a browser and should be done before launch.
+- **The NMBA Outcomes-Based Assessment page** returned a client error, so the
+  Stream A/B/C model is unverified. (The 450-hour recency standard was confirmed
+  separately via the NMBA fact sheet — see above.)
 - Everything in the Gulf cluster. None of those pages has a working source at all
   — see `source-audit.md`.
 
 ## What this implies for the rest
 
-Of the figures checked, **7 were wrong and 5 were right**. The errors are not
+Of the figures checked, **7 were wrong and 6 were right**. The errors are not
 random: each is a plausible number in the right shape and currency, and two
 (the NNAS psychiatric-nurse fee, the 2027 NCLEX price) are real figures applied
 to the wrong thing. That is what makes them hard to catch by reading.

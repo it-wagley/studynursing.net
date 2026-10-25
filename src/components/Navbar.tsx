@@ -186,7 +186,7 @@ export const Navbar: React.FC<NavigationProps> = ({ currentPath = "/", onNavigat
             {openMenu === "tools" && (
               <div
                 role="menu"
-                className="absolute left-0 top-full mt-1.5 w-88 bg-surface border border-line rounded-lg p-2 shadow-sm z-40 space-y-1"
+                className="absolute left-0 top-full mt-1.5 w-96 bg-surface border border-line rounded-lg p-2 shadow-sm z-40 space-y-1"
               >
                 <div className="px-3 py-1.5 text-eyebrow text-ink-40 border-b border-line-soft">
                   Free ungated study tools
