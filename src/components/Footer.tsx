@@ -218,6 +218,11 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                   Contributor stories
                 </a>
               </li>
+              <li>
+                <a href="/privacy" onClick={(e) => handleNav(e, "/privacy")} className="hover:text-ink-soft transition-colors">
+                  What we do with your details
+                </a>
+              </li>
             </ul>
           </div>
 

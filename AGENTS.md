@@ -179,6 +179,50 @@ is sourced, cited and dated on the page.
 - Only the routes in `generateStaticParams()` exist. `dynamicParams = false`, so
   an unknown path returns a real 404 instead of silently rendering the homepage.
 
+## 6b. Recorded decision — contact details and the CRM
+
+Section 6 requires third-party data flows to be recorded here, so:
+
+**One form, one purpose.** `src/components/UpdateSignup.tsx` is the only place
+the site asks for contact details. It offers to email the reader when the
+destination guide she is reading changes. It offers nothing else — no download,
+no guide, no assessment, no newsletter. It appears on the home page and the
+`/register` index and nowhere else.
+
+**Fields are fixed by contract.** Name, email, optional phone, destination
+interest, consent. The list lives in `src/data/leadForm.ts` and the route
+destructures field by field, so adding an input to the form cannot start
+collecting qualifications, scores or visa status (§ 4.2). The consent sentence is
+declared once in that file and travels with the submission, so what is recorded
+is provably what the reader was shown.
+
+**Submissions leave immediately.** `POST /api/leads` forwards to a GoHighLevel
+inbound webhook at `LEAD_WEBHOOK_URL` and stores nothing in the site. There is no
+`GET` handler. If the webhook is unset or fails, the reader is told plainly that
+her details were not saved — a success screen over a lost submission is the
+failure mode this replaced.
+
+**`/privacy` must be complete before the form collects anything.** It needs the
+operating entity's registered name and an address for data requests. Both are
+`null` in `PrivacyPage.tsx` and the page says so on its face until they are
+filled in.
+
+### Removed October 2026 — the Nurse Passport
+
+`/api/passport`, `NursePassportBuilder.tsx` and `passportModel.ts` were deleted.
+They are the simulated employer portal § 2 says was removed; it was still here,
+and the API route was live in production, where `noindex` does not reach.
+
+`calculateNRI()` scored a nurse out of 100 from her education, experience,
+English status and exam progress, and returned a tier — "Platinum (Placement
+Ready)", "Gold (Exam Ready)" — with next steps handing off to a
+`"Direct Hospital Recruiter"`. `GET /api/passport` served a pool of invented
+nurses, each carrying a `leadValueEstimate` of "$450 Qualified Lead".
+
+That breaks non-negotiables 1, 2 and 5 and the one rule in § 3. It is in git
+history if the model is ever wanted for something else; it does not come back
+into this codebase.
+
 ## 7. Definition of done
 
 A page is not finished until all of these are true.

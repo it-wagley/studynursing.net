@@ -48,6 +48,7 @@ export function generateStaticParams() {
     { slug: ["tools", "clinical-reference"] },
     { slug: ["tools", "tutor"] },
     { slug: ["about"] },
+    { slug: ["privacy"] },
     { slug: ["sources"] },
     { slug: ["advisers"] },
     { slug: ["study"] },
