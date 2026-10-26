@@ -1,6 +1,7 @@
 import React from "react";
 import { DepthLabel } from "./DepthLabel";
 import { CautionPanel } from "./CautionPanel";
+import { UpdateSignup } from "./UpdateSignup";
 import { ArrowRight, CheckCircle2, FileText, Calculator, Pill, BookOpen, ShieldCheck } from "lucide-react";
 
 interface HomePageProps {
@@ -342,6 +343,9 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
           </a>
         </div>
       </section>
+
+      {/* 7. Update signup — the only place the site asks for contact details */}
+      <UpdateSignup onNavigate={onNavigate} />
 
     </div>
   );

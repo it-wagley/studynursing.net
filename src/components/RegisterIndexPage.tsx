@@ -1,5 +1,6 @@
 import React from "react";
 import { PageFurniture, PageFurnitureData } from "./PageFurniture";
+import { UpdateSignup } from "./UpdateSignup";
 import { DepthLabel } from "./DepthLabel";
 import { CautionPanel } from "./CautionPanel";
 import { DESTINATION_DATA } from "@/data/destinations";
@@ -192,6 +193,8 @@ export const RegisterIndexPage: React.FC<RegisterIndexPageProps> = ({ onNavigate
           <ArrowRight className="w-4 h-4" />
         </button>
       </div>
+
+      <UpdateSignup onNavigate={onNavigate} />
 
       <PageFurniture data={furnitureData} />
     </div>

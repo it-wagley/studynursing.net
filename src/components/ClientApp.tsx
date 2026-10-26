@@ -31,6 +31,7 @@ import { GulfMoneyPage } from "@/components/GulfMoneyPage";
 import { GulfAdjustingPage } from "@/components/GulfAdjustingPage";
 import { GulfYourNextMovePage } from "@/components/GulfYourNextMovePage";
 import { AboutPage } from "@/components/AboutPage";
+import { PrivacyPage } from "@/components/PrivacyPage";
 import { SourcesIndexPage } from "@/components/SourcesIndexPage";
 import { AdvisersPage } from "@/components/AdvisersPage";
 import { StudyPage } from "@/components/StudyPage";
@@ -46,12 +47,14 @@ export function ClientApp({ initialPath = "/" }: ClientAppProps) {
   const pathname = usePathname();
   const [currentPath, setCurrentPath] = useState<string>(initialPath);
 
-  // Sync with browser URL changes (e.g. initial load or router navigation)
+  // Sync with browser URL changes (e.g. initial load or router navigation).
+  // `currentPath` is in the dependency list because the effect reads it; the
+  // equality guard means a re-run after our own setState is a no-op.
   useEffect(() => {
     if (pathname && pathname !== currentPath) {
       setCurrentPath(pathname);
     }
-  }, [pathname]);
+  }, [pathname, currentPath]);
 
   // Handle browser back/forward buttons
   useEffect(() => {
@@ -149,6 +152,9 @@ export function ClientApp({ initialPath = "/" }: ClientAppProps) {
     // 6. Supporting Institutional Content (Step 10)
     if (currentPath === "/about") {
       return <AboutPage onNavigate={handleNavigate} />;
+    }
+    if (currentPath === "/privacy") {
+      return <PrivacyPage onNavigate={handleNavigate} />;
     }
     if (currentPath === "/sources") {
       return <SourcesIndexPage onNavigate={handleNavigate} />;
